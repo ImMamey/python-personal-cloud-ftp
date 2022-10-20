@@ -2,9 +2,6 @@
     <h1 align="center"/>«Practica 5 DDNS»</h1>
 </p>
 
-<p align="center">
-    <a href="/docs/readme_es.md"> Español </a>
-</p>
 
 
 ## Developers
@@ -20,35 +17,54 @@
 
 
 ## Description
- 
+ A small, local-network based google-drive-like file save system  made with python3, ftp, and based on docker.
+
+
+---
+## Features
+* smt smt
+* yadah yadah
+---
+
+
+## Requirements
+* [Python3](https://www.python.org/downloads/)
+* [Mypy](http://mypy-lang.org/) (For debbugging only)
+* [Docker](https://www.docker.com/) (For the server deployment)
+* [Python FTP](https://github.com/giampaolo/pyftpdlib)
+* [PyQT5](https://pypi.org/project/PyQt5/)
+---
+## Installation
+##### For development:
+1. Download and install [Python 3.10.8](https://www.python.org/downloads/)
+2. Download (or clone) this repository.
+3. Once the repository is opened, access to the directory through terminal/cmd.
+4. Run `pip install -U mypy`.
+5. Run `pip install PyQt5`.
+6. Run `-m pip install python-dotenv`.
+7. Either run `pip install pyftpdlib` or [download the tar](https://pypi.org/project/pyftpdlib/#files) file. If you decided to download it manually, you would need to manually add the file trough your IDE.
+8. Install Docker. You can find a guide to do this in [here](https://docs.docker.com/engine/install/ubuntu/). 
+>    For windows, you would need to either install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) , or to download the [docker desktop App](https://www.docker.com/products/docker-desktop/) and enable CPU virtualization in your PC BIO's
+##### For running the app only:
+1. Download and install [Python 3.10.8](https://www.python.org/downloads/)
+2. Download the latest [release]().
 
 
 ---
 
 
-## Installation & Requirements
-* [An no-ip account](https://www.noip.com/)
-* "Dynamyc Update Client" ([DUC](https://www.noip.com/support/knowledgebase/installing-the-windows-4-x-dynamic-update-client-duc/#:~:text=First%20go%20to%20https%3A%2F%2F,Windows%20version%20of%20the%20DUC.&text=Next%2C%20open%20your%20downloads%20folder,%E2%80%9CRun%E2%80%9D%20the%20installation%20process.))
 
 
----
+## Running the Client
+1. 
+2. 
 
-
-
-
-## Running the Page
-1. [An no-ip account](https://www.noip.com/)
-2. Create a `Dynamic DNS`.
-3. Register the `DDNS` in our router.
-4. Install the "Dynamyc Update Client" ([DUC](https://www.noip.com/support/knowledgebase/installing-the-windows-4-x-dynamic-update-client-duc/#:~:text=First%20go%20to%20https%3A%2F%2F,Windows%20version%20of%20the%20DUC.&text=Next%2C%20open%20your%20downloads%20folder,%E2%80%9CRun%E2%80%9D%20the%20installation%20process.))
-5. Rewire ports 80/443 to our server so it links to the page.
-6. Run the content of this repository on local host.
-> You can use npm and the comman `hhtp-server` on the directory to run a local host of this page.
-7. Connect trough internet to this page.
-
+## Running the Server
+1.
+2.
 
 ---
 
 
 ## References
-* [Link to the PDF (Spanish)](https://m7.ucab.edu.ve/courses/23100/files/2272476/download?download_frd=1)
+* [Requirements (wiki-docs)]()
