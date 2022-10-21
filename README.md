@@ -75,3 +75,8 @@
 
 ## References
 * [Requirements (wiki-docs)]()
+
+---
+## License
+* [GPL-3.0 license](https://github.com/ImMamey/python-personal-cloud-ftp/blob/master/LICENSE.md)
+
