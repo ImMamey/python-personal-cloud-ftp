@@ -11,14 +11,16 @@ from pathlib import Path
 import ip
 
 LOG = logging.getLogger("server")
-def main(server_ip: str, storage_path:str)-> None:
+
+
+def main(server_ip: str, storage_path: str) -> None:
     # Instantiate a dummy authorizer for managing 'virtual' users
     authorizer = DummyAuthorizer()
 
     # Define a new user having full r/w permissions and a read-only
     # anonymous user
-    #TODO: The line bellow creates the users for our ftp server, if we want multiple users we would need to have more lines of these.
-    authorizer.add_user( env.USER, env.PASSWORD, storage_path, perm='elradfmwMT')
+    # TODO: The line bellow creates the users for our ftp server, if we want multiple users we would need to have more lines of these.
+    authorizer.add_user(env.USER, env.PASSWORD, storage_path, perm="elradfmwMT")
     # authorizer.add_anonymous(os.getcwd())
 
     # Instantiate FTP handler class
@@ -32,7 +34,7 @@ def main(server_ip: str, storage_path:str)-> None:
     # passive connections.  Decomment in case you're behind a NAT.
     # handler.masquerade_address = '151.25.42.11'
     # handler.passive_ports = range(60000, 65535)
-    #logging.basicConfig(filename='/var/log/pyftpd.log', level=logging.INFO)
+    # logging.basicConfig(filename='/var/log/pyftpd.log', level=logging.INFO)
     # Instantiate FTP server class and listen on 0.0.0.0:2121
     address = (server_ip, 21)
     server = FTPServer(address, handler)
@@ -43,23 +45,29 @@ def main(server_ip: str, storage_path:str)-> None:
 
     # start ftp server
     server.serve_forever()
-def storage_path()->str:
+
+
+def storage_path() -> str:
     if not os.path.exists("data\storage"):
         print(f"Relative path `data\stprage` does not exist")
         LOG.info(f"FAILIURE: relative path `data\stprage` wasnt created by the logger")
     else:
         print("Path data\storage is created, succesfully accessed")
     return "data\storage"
-#TODO: Divide the and above code to an separate "Service.py" class.
-if __name__ == '__main__':
-    server_ip = ip.ip.get_ip()
+
+
+# TODO: Divide the and above code to an separate "Service.py" class.
+if __name__ == "__main__":
+    server_ip = ip.ip.ip.get_ip()
     try:
         setup_logger(logger_name="server")
         storage_path = storage_path()
         print(f"FTP server is running on the ip: {server_ip}")
         print(f"Running on: {platform.system()} {platform.release()} ({os.name})")
         print("--------")
-        LOG.info(f"Running on: {platform.system()} {platform.release()} ({os.name}) on the ip: {server_ip}")
+        LOG.info(
+            f"Running on: {platform.system()} {platform.release()} ({os.name}) on the ip: {server_ip}"
+        )
     except Exception as e:
         exception = f"{type(e).__name__}: (e)"
         print(f"Failed to setup logger and/or ftp folder:\n {exception}")

@@ -12,6 +12,7 @@ class Environment(BaseSettings):
     This .env should have the default password and username for the FTP server.
     It's highly recommended to add the .env to the .gitignore file for security reasons.
     """
+
     USER: str
     PASSWORD: str
 

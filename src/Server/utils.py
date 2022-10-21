@@ -28,7 +28,6 @@ def setup_logger(logger_name: str = "server", level: int = logging.DEBUG) -> Non
     storage_folder = data_path("storage", is_folder=True)
     log_folder = data_path("logs", is_folder=True)
 
-
     fmt = logging.Formatter(
         "%(asctime)s - %(name)s - %(levelname)s - %(message)s", "%Y-%m-%d %H:%M:%S"
     )

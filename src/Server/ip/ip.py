@@ -3,7 +3,7 @@ import socket
 """Gets the ip of the machine in the local network"""
 
 
-class ip:
+class IP:
     local_ip: str
 
     def get_ip(self) -> str:
@@ -15,5 +15,5 @@ class ip:
         s.close()
         return self.local_ip
 
-ip = ip()
 
+ip = IP()
