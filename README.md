@@ -34,8 +34,8 @@
 
 ## Requirements
 * [Python 3.10+](https://www.python.org/downloads/)
-* [Mypy](http://mypy-lang.org/) (For debbugging only)
-* [Docker](https://www.docker.com/) (For the server deployment)
+* [Mypy](http://mypy-lang.org/) (Optional: for debbugging only)
+* [Docker](https://www.docker.com/) (Optional: for the server deployment)
 * [Python FTP](https://github.com/giampaolo/pyftpdlib)
 * [PyQT5](https://pypi.org/project/PyQt5/)
 * [PyQT5 Designer](https://build-system.fman.io/qt-designer-download)
