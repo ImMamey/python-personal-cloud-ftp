@@ -20,7 +20,7 @@
 
 
 ## Description
- A small and lightweight local-network based google-drive-like file save system made with python3, pyQT5, and pyftplib.
+ A small and lightweight local-network based file storage and synchronization system (like Google Drive) made with python3, pyQT5, pyftplib, and Docker (Optional, can run without docker).
 
 
 ---
