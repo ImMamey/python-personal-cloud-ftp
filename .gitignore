@@ -9,7 +9,7 @@ dmypy.json
 
 
 #bot things
-.env
+src/Server/.env
 *.log
 data/
 logs/
