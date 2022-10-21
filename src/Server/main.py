@@ -4,6 +4,7 @@ import logging
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
+import ip
 
 
 def main():
@@ -40,4 +41,5 @@ def main():
 
 
 if __name__ == '__main__':
+    server_ip = ip.get_ip()
     main()
