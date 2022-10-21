@@ -4,10 +4,12 @@ import logging
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
+from utils import setup_logger
 import ip
 
+LOG = logging.getLogger("server")
 
-def main():
+def main(server_ip: str)-> None:
     # Instantiate a dummy authorizer for managing 'virtual' users
     authorizer = DummyAuthorizer()
 
@@ -27,9 +29,9 @@ def main():
     # passive connections.  Decomment in case you're behind a NAT.
     # handler.masquerade_address = '151.25.42.11'
     # handler.passive_ports = range(60000, 65535)
-    logging.basicConfig(filename='/var/log/pyftpd.log', level=logging.INFO)
+    #logging.basicConfig(filename='/var/log/pyftpd.log', level=logging.INFO)
     # Instantiate FTP server class and listen on 0.0.0.0:2121
-    address = ('', 21)
+    address = (server_ip, 21)
     server = FTPServer(address, handler)
 
     # set a limit for connections
@@ -41,5 +43,7 @@ def main():
 
 
 if __name__ == '__main__':
+    setup_logger(logger_name="server")
+    LOG.info()
     server_ip = ip.get_ip()
-    main()
+    main(server_ip)
