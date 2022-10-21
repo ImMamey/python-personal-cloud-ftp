@@ -53,7 +53,7 @@
 >    For windows, you would need to either install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) , or to download the [docker desktop App](https://www.docker.com/products/docker-desktop/) and enable CPU virtualization in your PC BIO's
 ##### Using the app only:
 1. Download and install [Python 3.10.8](https://www.python.org/downloads/)
-2. Download the latest [release]().
+2. Download the latest [release](https://github.com/ImMamey/python-personal-cloud-ftp/releases).
 3. Execute the file.
 
 

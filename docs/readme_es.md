@@ -4,7 +4,7 @@
 
 
 
-## Developers
+## Desarrolladores
 <table align="center">
 <tbody>
 <tr>
@@ -16,38 +16,39 @@
 ---
 
 
-## Description
- A small, local-network based google-drive-like file save system  made with python3, ftp, and based on docker.
-
+## Descripción
+ Un sistema de almacenamiento de archivos similar a Google Drive basado en una red local. Hecho con python3, ftp y basado en Docker para su despliegue.
 
 ---
-## Features
-* smt smt
-* yadah yadah
+## Características
+* Carga/descarga archivos en tu red local.
+* El servidor puede ejecutarse en un contenedor acoplable para mayor estabilidad y confiabilidad.
+* Multiplataforma (Windows y Linux)
+* Sistema de registro.
 ---
 
 
-## Requirements
+## Requerimientos
 * [Python3](https://www.python.org/downloads/)
-* [Mypy](http://mypy-lang.org/) (For debbugging only)
-* [Docker](https://www.docker.com/) (For the server deployment)
+* [Mypy](http://mypy-lang.org/) (Opcional: Solo para debuguear)
+* [Docker](https://www.docker.com/) (Opcional: Para el despliegue de la applicacion)
 * [Python FTP](https://github.com/giampaolo/pyftpdlib)
 * [PyQT5](https://pypi.org/project/PyQt5/)
 ---
-## Installation
-##### For development:
-1. Download and install [Python 3.10.8](https://www.python.org/downloads/)
-2. Download (or clone) this repository.
-3. Once the repository is opened, access to the directory through terminal/cmd.
-4. Run `pip install -U mypy`.
-5. Run `pip install PyQt5`.
-6. Run `-m pip install python-dotenv`.
-7. Either run `pip install pyftpdlib` or [download the tar](https://pypi.org/project/pyftpdlib/#files) file. If you decided to download it manually, you would need to manually add the file trough your IDE.
-8. Install Docker. You can find a guide to do this in [here](https://docs.docker.com/engine/install/ubuntu/). 
->    For windows, you would need to either install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) , or to download the [docker desktop App](https://www.docker.com/products/docker-desktop/) and enable CPU virtualization in your PC BIO's
-##### For running the app only:
-1. Download and install [Python 3.10.8](https://www.python.org/downloads/)
-2. Download the latest [release]().
+## Instalación
+##### Para desarrollo:
+1. Descargar e instalar [Python 3.10.8](https://www.python.org/downloads/)
+2. Descargar (o clonar este repositorio).
+3. Una vez que el repositorio esté abierto, acceder a su directorio atravez de la terminal/cmd.
+4. Correr `pip install -U mypy`.
+5. Correr `pip install PyQt5`.
+6. Correr `-m pip install python-dotenv`.
+7. Correr `pip install pyftpdlib` o [descargar el archivo tar](https://pypi.org/project/pyftpdlib/#files). Si decidiste descargar el tar manualmente, deberas de añadir dicho archivo manualmente a tu IDE.
+8. Instalar Docker. Puedes ver una guía para su instalación [aquí](https://docs.docker.com/engine/install/ubuntu/). 
+>    Para windows, tendras que tener instalado [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) , o tener descargada e instalada la [aplicacion de docker desktop](https://www.docker.com/products/docker-desktop/) . Sea cual sea tu opción a elegir tendrás que tener la opción de virtualización asistida de CPU activada en tu BIOS.
+##### Para correr la aplicacion:
+1. Descargar [Python 3.10.8](https://www.python.org/downloads/)
+2. Descargar la ultima [versión publicada](https://github.com/ImMamey/python-personal-cloud-ftp/releases).
 
 
 ---
