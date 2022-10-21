@@ -6,6 +6,7 @@ from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
 from src.Server.utils import setup_logger
+from environment import env
 
 import ip
 
@@ -17,7 +18,7 @@ def main(server_ip: str)-> None:
 
     # Define a new user having full r/w permissions and a read-only
     # anonymous user
-    authorizer.add_user('user', '12345', '.', perm='elradfmwMT')
+    authorizer.add_user( env.USER, env.PASSWORD, '.', perm='elradfmwMT')
     # authorizer.add_anonymous(os.getcwd())
 
     # Instantiate FTP handler class
