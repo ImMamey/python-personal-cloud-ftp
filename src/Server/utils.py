@@ -25,7 +25,9 @@ def data_path(path: Union[Path, str], is_folder: bool = False) -> Path:
 
 def setup_logger(logger_name: str = "server", level: int = logging.DEBUG) -> None:
     """Setup basic logging config"""
+    storage_folder = data_path("storage", is_folder=True)
     log_folder = data_path("logs", is_folder=True)
+
 
     fmt = logging.Formatter(
         "%(asctime)s - %(name)s - %(levelname)s - %(message)s", "%Y-%m-%d %H:%M:%S"
