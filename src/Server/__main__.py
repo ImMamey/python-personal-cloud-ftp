@@ -52,5 +52,4 @@ if __name__ == '__main__':
     print(f"Running on: {platform.system()} {platform.release()} ({os.name})")
     print("--------")
     LOG.info(f"Running on: {platform.system()} {platform.release()} ({os.name}) on the ip: {server_ip}")
-
     main(server_ip)
