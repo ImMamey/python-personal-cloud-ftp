@@ -6,12 +6,14 @@ import socket
 class ip:
     local_ip: str
 
-    @staticmethod
-    def get_ip() -> str:
+    def get_ip(self) -> str:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect(("8.8.8.8", 80))
 
-        local_ip = s.getsockname()[0]
-        print(local_ip)
+        self.local_ip = s.getsockname()[0]
+        print(self.local_ip)
         s.close()
-        return local_ip
+        return self.local_ip
+
+ip = ip()
+

@@ -1,5 +1,6 @@
 import os
 import logging
+import platform
 
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
@@ -41,9 +42,13 @@ def main(server_ip: str)-> None:
     # start ftp server
     server.serve_forever()
 
-
+#TODO: Divide the and above code to an separate "Service.py" class.
 if __name__ == '__main__':
+    server_ip = ip.ip.get_ip()
     setup_logger(logger_name="server")
-    LOG.info()
-    server_ip = ip.get_ip()
+    print(f"FTP server is running on the ip: {server_ip}")
+    print(f"Running on: {platform.system()} {platform.release()} ({os.name})")
+    print("--------")
+    LOG.info(f"Running on: {platform.system()} {platform.release()} ({os.name}) on the ip: {server_ip}")
+
     main(server_ip)
