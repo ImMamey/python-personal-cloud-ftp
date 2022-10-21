@@ -20,22 +20,25 @@
 
 
 ## Description
- A small, local-network based google-drive-like file save system  made with python3, ftp, and based on docker.
+ A small and lightweight local-network based google-drive-like file save system made with python3, pyQT5, and pyftplib.
 
 
 ---
 ## Features
-* smt smt
-* yadah yadah
+* Upload/download files in your local network.
+* The server can run in a docker container for more stability and reliability.
+* Cross-platform (windows and linux).
+* Loging system.
 ---
 
 
 ## Requirements
-* [Python3](https://www.python.org/downloads/)
+* [Python 3.10+](https://www.python.org/downloads/)
 * [Mypy](http://mypy-lang.org/) (For debbugging only)
 * [Docker](https://www.docker.com/) (For the server deployment)
 * [Python FTP](https://github.com/giampaolo/pyftpdlib)
 * [PyQT5](https://pypi.org/project/PyQt5/)
+* [PyQT5 Designer](https://build-system.fman.io/qt-designer-download)
 ---
 ## Installation
 ##### For development:
@@ -48,9 +51,10 @@
 7. Either run `pip install pyftpdlib` or [download the tar](https://pypi.org/project/pyftpdlib/#files) file. If you decided to download it manually, you would need to manually add the file trough your IDE.
 8. Install Docker. You can find a guide to do this in [here](https://docs.docker.com/engine/install/ubuntu/). 
 >    For windows, you would need to either install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) , or to download the [docker desktop App](https://www.docker.com/products/docker-desktop/) and enable CPU virtualization in your PC BIO's
-##### For running the app only:
+##### Using the app only:
 1. Download and install [Python 3.10.8](https://www.python.org/downloads/)
 2. Download the latest [release]().
+3. Execute the file.
 
 
 ---
