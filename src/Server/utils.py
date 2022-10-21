@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 from typing import Any, Callable, List, Optional, Union
 
+
 def data_path(path: Union[Path, str], is_folder: bool = False) -> Path:
     """Return a valid local data path, docker-aware"""
     if os.environ.get("RUNNING_IN_DOCKER", False):
@@ -24,7 +25,7 @@ def data_path(path: Union[Path, str], is_folder: bool = False) -> Path:
 
 def setup_logger(logger_name: str = "server", level: int = logging.DEBUG) -> None:
     """Setup basic logging config"""
-    log_folder = data_path("logs", is_folder= True)
+    log_folder = data_path("logs", is_folder=True)
 
     fmt = logging.Formatter(
         "%(asctime)s - %(name)s - %(levelname)s - %(message)s", "%Y-%m-%d %H:%M:%S"

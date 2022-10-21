@@ -5,7 +5,8 @@ import platform
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
-from utils import setup_logger
+from src.Server.utils import setup_logger
+
 import ip
 
 LOG = logging.getLogger("server")
