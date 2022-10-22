@@ -39,6 +39,7 @@
 * [Python FTP](https://github.com/giampaolo/pyftpdlib)
 * [PyQT5](https://pypi.org/project/PyQt5/)
 * [PyQT5 Designer](https://build-system.fman.io/qt-designer-download)
+* Pyside2
 ---
 ## Installation
 ##### For development:
@@ -48,8 +49,9 @@
 4. Run `pip install -U mypy`.
 5. Run `pip install PyQt5`.
 6. Run `-m pip install python-dotenv`.
-7. Either run `pip install pyftpdlib` or [download the tar](https://pypi.org/project/pyftpdlib/#files) file. If you decided to download it manually, you would need to manually add the file trough your IDE.
-8. Install Docker. You can find a guide to do this in [here](https://docs.docker.com/engine/install/ubuntu/). 
+7. Run `pip install pyside2`
+8. Either run `pip install pyftpdlib` or [download the tar](https://pypi.org/project/pyftpdlib/#files) file. If you decided to download it manually, you would need to manually add the file trough your IDE.
+9. Install Docker. You can find a guide to do this in [here](https://docs.docker.com/engine/install/ubuntu/). 
 >    For windows, you would need to either install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) , or to download the [docker desktop App](https://www.docker.com/products/docker-desktop/) and enable CPU virtualization in your PC BIO's
 ##### Using the app only:
 1. Download and install [Python 3.10.8](https://www.python.org/downloads/)
