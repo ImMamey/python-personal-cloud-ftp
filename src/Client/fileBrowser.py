@@ -15,6 +15,7 @@ class MyFileBrowser(main.Ui_MainWindow, QtWidgets.QMainWindow):
         model.setRootPath((QtCore.QDir.rootPath()))
         self.treeView.setModel(model)
         self.treeView.setRootIndex(model.index(path))
+        self.treeView.setSortingEnabled(True)
 
 
 if __name__ == "__main__":
