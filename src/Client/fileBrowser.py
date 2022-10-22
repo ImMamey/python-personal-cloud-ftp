@@ -1,7 +1,12 @@
 from PyQt5 import QtWidgets, QtGui, QtCore
 import os
 from ui import main
+from ftplib import FTP
 
+#TODO: these details needs to be deleted later on, the credential cant be stored in this program
+host = "192.168.0.106"
+user = "user"
+password = "12345"
 
 class MyFileBrowser(main.Ui_MainWindow, QtWidgets.QMainWindow):
     def __init__(self):
@@ -30,7 +35,11 @@ class MyFileBrowser(main.Ui_MainWindow, QtWidgets.QMainWindow):
         file_path = self.model.filePath(index)
         os.startfile(file_path)
 
-
+#with FTP(host) as ftp:
+#    ftp.login(user=user, passwd=password)
+#    print(ftp.getwelcome())
+#
+#    with open()
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
