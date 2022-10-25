@@ -23,6 +23,7 @@ def main(server_ip: str, storage_path: str) -> None:
     authorizer.add_user(env.USER, env.PASSWORD, storage_path, perm="elradfmwMT")
     # authorizer.add_anonymous(os.getcwd())
 
+
     # Instantiate FTP handler class
     handler = FTPHandler
     handler.authorizer = authorizer
