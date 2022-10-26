@@ -12,7 +12,6 @@ import ip
 
 LOG = logging.getLogger("server")
 
-
 def main(server_ip: str, storage_path: str) -> None:
     # Instantiate a dummy authorizer for managing 'virtual' users
     authorizer = DummyAuthorizer()
