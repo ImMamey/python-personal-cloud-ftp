@@ -1,4 +1,8 @@
 import socket
+import pickle
+
+
+
 
 HEADERSIZE = 10
 
@@ -11,7 +15,11 @@ while True:
     clientsocket, address = s.accept()
     #^ accept connection
     print(f'Connection from {address} has been establisdhed.')
-    msg = "Welcome to the server!"
-    msg = f'{len(msg):<{HEADERSIZE}}' + msg
-    clientsocket.send(bytes(msg, "utf-8"))
+
+    d = {1: "Hey", 2: "There"}
+    msg = pickle.dumps(d)
+
+    msg = bytes(f'{len(msg):<{HEADERSIZE}}', "utf-8") + msg
+
+    clientsocket.send(bytes(msg))
 
