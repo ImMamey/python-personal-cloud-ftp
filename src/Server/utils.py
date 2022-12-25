@@ -52,3 +52,4 @@ def setup_logger(logger_name: str = "server", level: int = logging.DEBUG) -> Non
     log.addHandler(hldr)
     log.setLevel(logging.DEBUG)
     log.addHandler(stream)
+
