@@ -4,7 +4,7 @@ from ui import main
 from ftplib import FTP
 
 #TODO: these details needs to be deleted later on, the credential cant be stored in this program
-host = "192.168.0.106"
+host = "192.168.0.101"
 user = "user"
 password = "12345"
 
