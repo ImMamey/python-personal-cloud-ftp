@@ -24,6 +24,7 @@ class MyFileBrowser(main.Ui_MainWindow, QtWidgets.QMainWindow):
         self.treeView.setRootIndex(self.model.index(path))
         self.treeView.setSortingEnabled(True)
 
+
     def context_menu(self):
         menu = QtWidgets.QMenu()
         open = menu.addAction("Open")
