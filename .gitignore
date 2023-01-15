@@ -13,6 +13,8 @@ src/Server/.env
 *.log
 data/
 logs/
+identifier.sqlite
+users.sqbpro
 
 *.py[cod]
 

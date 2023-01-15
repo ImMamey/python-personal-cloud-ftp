@@ -36,24 +36,34 @@ def basicConnection()->None:
         targetfile ='hllo.txt'
         localfilepath = targetfile
 
-        with open('test.txt', 'wb') as f:
-            retCode = ftp.retrbinary(f"RETR {targetfile}", f.write, 1024)
+        ftp.nlst()
 
 
-        with open(localfilepath, 'rb') as f:
-            retCode = ftp.storbinary(f"STOR {targetfile}", f)
-            if retCode.startswith("226"):
-                print("upload usccess!")
-            else:
-                print("upload not succesful...")
+        #with open('test.txt', 'wb') as f:
+        #    retCode = ftp.retrbinary(f"RETR {targetfile}", f.write, 1024)
+
+        '''
+        #with open(localfilepath, 'rb') as f:
+        #retCode = ftp.storbinary(f"STOR {targetfile}", f)
+        #if retCode.startswith("226"):
+        #    print("upload usccess!")
+        #else:
+        #print("upload not succesful...")
+        '''
+
 
         # show files in the cwd
         fnames = ftp.nlst()
         print(fnames)
+
+        ftp_list = ftp.nlst()
+        for _ in ftp_list:
+            print(_)
 
 
 
         ftp.quit()
 
 basicConnection()
-print(getFTPFilenames("directory/here"))
+
+#print(getFTPFilenames("directory/here"))
