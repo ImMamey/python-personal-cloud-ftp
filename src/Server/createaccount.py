@@ -14,6 +14,8 @@ from PyQt5.QtWidgets import QMessageBox
 import sqlite3
 import sys
 
+from src.Server.adminpanel import Ui_MainWindow
+
 
 class Ui_Form(object):
     def setupUi(self, Form) -> None:
@@ -161,6 +163,7 @@ class Ui_Form(object):
                 x = msg.exec_()
             else:
                 print("Logged in!")
+                self.openWindow()
 
             db.commit()
             db.close()
@@ -214,6 +217,14 @@ class Ui_Form(object):
         if i.text() == "Retry":
             self.username = ""
             self.password = ""
+
+    def openWindow(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self.window)
+        self.window.show()
+        Form.close()
+
 
 
 if __name__ == "__main__":
