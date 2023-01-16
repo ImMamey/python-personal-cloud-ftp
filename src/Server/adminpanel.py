@@ -288,9 +288,11 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.spinBox_storage_createUser.setMaximum(100000)
 
         # actions and events
         self.pushButton_Refresh_view.clicked.connect(self.refreshed_button_pressed)
+        self.button_create_user.clicked.connect(self.sql_create_user)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -371,7 +373,6 @@ class Ui_MainWindow(object):
             self.info_label_create.setText("The minimun storage capacity cant be less than 0")
             return False
         elif self.lineEdit_createUsername.text() != "" and self.lineEdit_createPassword.text() != "" and self.spinBox_storage_createUser.value() != 0:
-            self.info_label_create.setText("User created!")
             return True
 
     def sql_create_user(self):
@@ -380,9 +381,10 @@ class Ui_MainWindow(object):
         :return: None
         """
         if self.linecreate_validation():
-            self.create_username = self.lineEdit_createUsername.text()
-            self.create_password = self.lineEdit_createPassword.text()
-            self.create_almacenamiento = int(self.spinBox_storage_createUser.value())
+            create_username = self.lineEdit_createUsername.text()
+            create_password = self.lineEdit_createPassword.text()
+            create_almacenamiento = int(self.spinBox_storage_createUser.value())
+            print(f"{create_username}, {create_password}, {create_almacenamiento}")
 
             # connection with DB
             db = None
@@ -392,15 +394,14 @@ class Ui_MainWindow(object):
                 print(e)
 
             # SQL commands and cursors
+            cmdinsert_create_user = f'''INSERT INTO users(username,password,almacenamiento) values("{create_username}", "{create_password}" , "{create_almacenamiento}");'''
+            cmdcheck_create_user = f'''SELECT username FROM users WHERE username = "{create_username}";'''
             cursor = db.cursor()
-
-            cmdinsert_create_user = f'''INSERT INTO users(username,password,almacenamiento) values("{self.create_username}", "{self.create_password}" , "{self.create_almacenamiento}");'''
-            cmdcheck_create_user = f'''SELECT username FROM users WHERE username = "{self.create_username};"'''
 
             #checks if there is another username in use
             cursor.execute(cmdcheck_create_user)
-
-            if not cursor.fetchone():
+            value = cursor.fetchone()
+            if cursor.fetchone():
                 msg = QMessageBox()
                 msg.setWindowTitle("Username already in use!")
                 msg.setText(f"The username you wanted to create already exists! Please use a different username")
@@ -408,7 +409,7 @@ class Ui_MainWindow(object):
                 x = msg.exec_()
             else:
                 try:
-                    print(f"Created the user: {self.create_username}")
+                    print(f"Created the user: {create_username}")
                     cursor.execute(cmdinsert_create_user)
                 except Exception as e:
                     print(f"Failed the creationf of user, traceback: {e}")
