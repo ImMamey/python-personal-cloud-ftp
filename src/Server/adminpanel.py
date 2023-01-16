@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import sqlite3
 
 # Form implementation generated from reading ui file 'adminpanel.ui'
 #
@@ -10,13 +9,21 @@ import sqlite3
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QTableWidgetItem
-
+from PyQt5.QtWidgets import QMessageBox
+import sqlite3
 import ip
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        #global class variables
+        self.create_username = ""
+        self.create_password = ""
+        self.create_almacenamiento = 0
+
+
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -349,31 +356,68 @@ class Ui_MainWindow(object):
             for column_number, data in enumerate(row_data):
                 self.table_users.setItem(row_number, column_number - 1, QTableWidgetItem(str(data)))
 
+
+    def linecreate_validation(self)-> bool:
+        if self.lineEdit_createUsername.text() == "" and self.lineEdit_createPassword.text() == "":
+            self.info_label_create.setText("Credentials cant be empty")
+            return False
+        elif self.lineEdit_createUsername.text() == "":
+            self.info_label_create.setText("Please enter a username")
+            return False
+        elif self.lineEdit_createPassword.text() == "":
+            self.info_label_create.setText("Please enter a valid password")
+            return False
+        elif self.spinBox_storage_createUser.value() == 0:
+            self.info_label_create.setText("The minimun storage capacity cant be less than 0")
+            return False
+        elif self.lineEdit_createUsername.text() != "" and self.lineEdit_createPassword.text() != "" and self.spinBox_storage_createUser.value() != 0:
+            self.info_label_create.setText("User created!")
+            return True
+
     def sql_create_user(self):
         """
         Creates an user from the username and password labes, and the storage capacity from the selection box.
         :return: None
         """
-        # connection with DB
-        db = None
-        try:
-            db = sqlite3.connect("users.db")
-        except Exception as e:
-            print(e)
+        if self.linecreate_validation():
+            self.create_username = self.lineEdit_createUsername.text()
+            self.create_password = self.lineEdit_createPassword.text()
+            self.create_almacenamiento = int(self.spinBox_storage_createUser.value())
 
-        # SQL commands and cursors
-        cursor = db.cursor()
+            # connection with DB
+            db = None
+            try:
+                db = sqlite3.connect("users.db")
+            except Exception as e:
+                print(e)
 
-        cmdinsert_create_user = f'''
-        INSERT INTO users(username,password,almacenamiento) 
-        values("{self.create_username}", "{self.create_password}" , "self.create_almacenamiento");
-        '''
-        cmdcheck_creacte_user = f'''
-        SELECT username FROM users WHERE username = "{self.create_username};"
-        '''
+            # SQL commands and cursors
+            cursor = db.cursor()
+
+            cmdinsert_create_user = f'''INSERT INTO users(username,password,almacenamiento) values("{self.create_username}", "{self.create_password}" , "{self.create_almacenamiento}");'''
+            cmdcheck_create_user = f'''SELECT username FROM users WHERE username = "{self.create_username};"'''
+
+            #checks if there is another username in use
+            cursor.execute(cmdcheck_create_user)
+
+            if not cursor.fetchone():
+                msg = QMessageBox()
+                msg.setWindowTitle("Username already in use!")
+                msg.setText(f"The username you wanted to create already exists! Please use a different username")
+                msg.setStandardButtons(QMessageBox.Ok)
+                x = msg.exec_()
+            else:
+                try:
+                    print(f"Created the user: {self.create_username}")
+                    cursor.execute(cmdinsert_create_user)
+                except Exception as e:
+                    print(f"Failed the creationf of user, traceback: {e}")
+
+            db.commit()
+            db.close()
 
 
-        #checks if there is another command
+
 
     def ip_label_update(self) -> None:
         try:
