@@ -12,6 +12,8 @@ import sqlite3
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidgetItem
 
+import ip
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -54,7 +56,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
         self.label_11 = QtWidgets.QLabel(self.horizontalLayoutWidget_5)
-        self.label_11.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_11.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_11.setObjectName("label_11")
         self.horizontalLayout_8.addWidget(self.label_11)
         self.lineEdit_searchUser_view = QtWidgets.QLineEdit(self.horizontalLayoutWidget_5)
@@ -100,7 +102,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.addWidget(self.label_3)
         self.label_4 = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.label_4.setLayoutDirection(QtCore.Qt.RightToLeft)
-        self.label_4.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_4.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_4.setObjectName("label_4")
         self.horizontalLayout_3.addWidget(self.label_4)
         self.spinBox_storage_createUser = QtWidgets.QSpinBox(self.verticalLayoutWidget)
@@ -120,7 +122,7 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.info_label_create.setFont(font)
         self.info_label_create.setStyleSheet("font: 9pt \"MS Shell Dlg 2\";\n"
-"color: rgb(255, 0, 0);")
+                                             "color: rgb(255, 0, 0);")
         self.info_label_create.setText("")
         self.info_label_create.setAlignment(QtCore.Qt.AlignCenter)
         self.info_label_create.setObjectName("info_label_create")
@@ -164,7 +166,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.addWidget(self.label_8)
         self.label_9 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
         self.label_9.setLayoutDirection(QtCore.Qt.RightToLeft)
-        self.label_9.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_9.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
         self.label_9.setObjectName("label_9")
         self.horizontalLayout_6.addWidget(self.label_9)
         self.spinBox_editStorage = QtWidgets.QSpinBox(self.verticalLayoutWidget_2)
@@ -184,7 +186,7 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.info_label_edit.setFont(font)
         self.info_label_edit.setStyleSheet("font: 9pt \"MS Shell Dlg 2\";\n"
-"color: rgb(255, 0, 0);")
+                                           "color: rgb(255, 0, 0);")
         self.info_label_edit.setText("")
         self.info_label_edit.setAlignment(QtCore.Qt.AlignCenter)
         self.info_label_edit.setObjectName("info_label_edit")
@@ -213,7 +215,7 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.info_label_delete.setFont(font)
         self.info_label_delete.setStyleSheet("font: 9pt \"MS Shell Dlg 2\";\n"
-"color: rgb(255, 0, 0);")
+                                             "color: rgb(255, 0, 0);")
         self.info_label_delete.setText("")
         self.info_label_delete.setAlignment(QtCore.Qt.AlignCenter)
         self.info_label_delete.setObjectName("info_label_delete")
@@ -230,7 +232,7 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.info_label_delete_2.setFont(font)
         self.info_label_delete_2.setStyleSheet("font: 9pt \"MS Shell Dlg 2\";\n"
-"color: rgb(255, 0, 0);")
+                                               "color: rgb(255, 0, 0);")
         self.info_label_delete_2.setText("")
         self.info_label_delete_2.setAlignment(QtCore.Qt.AlignCenter)
         self.info_label_delete_2.setObjectName("info_label_delete_2")
@@ -253,7 +255,7 @@ class Ui_MainWindow(object):
         font.setWeight(9)
         self.label_ipAddress.setFont(font)
         self.label_ipAddress.setStyleSheet("font: 75 11pt \"MS Shell Dlg 2\";\n"
-"color: rgb(255, 0, 0);")
+                                           "color: rgb(255, 0, 0);")
         self.label_ipAddress.setText("")
         self.label_ipAddress.setAlignment(QtCore.Qt.AlignCenter)
         self.label_ipAddress.setObjectName("label_ipAddress")
@@ -280,9 +282,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        #actions and events
-        self.pushButton_Refresh_view.clicked.connect(self.sql_populate_table)
-
+        # actions and events
+        self.pushButton_Refresh_view.clicked.connect(self.refreshed_button_pressed)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -318,6 +319,11 @@ class Ui_MainWindow(object):
         self.menuOptions.setTitle(_translate("MainWindow", "Options"))
         self.actionRefresh.setText(_translate("MainWindow", "Refresh"))
         self.actionLogout.setText(_translate("MainWindow", "Logout"))
+        self.table_users.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+
+    def refreshed_button_pressed(self) -> None:
+        self.sql_populate_table()
+        self.ip_label_update()
 
     def sql_populate_table(self) -> None:
         """
@@ -332,26 +338,28 @@ class Ui_MainWindow(object):
             print(e)
 
         # SQL commands and cursors
-        command ="SELECT * FROM users"
         cursor = db.cursor()
+        command = '''SELECT * FROM users'''
 
         result = cursor.execute(command)
-
         self.table_users.setRowCount(0)
+
         for row_number, row_data in enumerate(result):
             self.table_users.insertRow(row_number)
             for column_number, data in enumerate(row_data):
                 self.table_users.setItem(row_number, column_number - 1, QTableWidgetItem(str(data)))
 
-
-
-
-
-
+    def ip_label_update(self) -> None:
+        try:
+            server_ip = ip.ip.ip.get_ip()
+            self.label_ipAddress.setText(server_ip)
+        except Exception as e:
+            print(e)
 
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()

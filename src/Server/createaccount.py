@@ -223,6 +223,7 @@ class Ui_Form(object):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self.window)
         self.window.show()
+        self.ui.refreshed_button_pressed()
         Form.close()
 
 
