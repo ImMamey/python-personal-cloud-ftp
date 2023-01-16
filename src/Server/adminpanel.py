@@ -349,6 +349,32 @@ class Ui_MainWindow(object):
             for column_number, data in enumerate(row_data):
                 self.table_users.setItem(row_number, column_number - 1, QTableWidgetItem(str(data)))
 
+    def sql_create_user(self):
+        """
+        Creates an user from the username and password labes, and the storage capacity from the selection box.
+        :return: None
+        """
+        # connection with DB
+        db = None
+        try:
+            db = sqlite3.connect("users.db")
+        except Exception as e:
+            print(e)
+
+        # SQL commands and cursors
+        cursor = db.cursor()
+
+        cmdinsert_create_user = f'''
+        INSERT INTO users(username,password,almacenamiento) 
+        values("{self.create_username}", "{self.create_password}" , "self.create_almacenamiento");
+        '''
+        cmdcheck_creacte_user = f'''
+        SELECT username FROM users WHERE username = "{self.create_username};"
+        '''
+
+
+        #checks if there is another command
+
     def ip_label_update(self) -> None:
         try:
             server_ip = ip.ip.ip.get_ip()
