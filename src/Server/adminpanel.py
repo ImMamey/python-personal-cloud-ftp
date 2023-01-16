@@ -288,12 +288,15 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
         self.spinBox_storage_createUser.setMaximum(100000)
+        self.spinBox_editStorage.setMaximum(100000)
 
         # actions and events
         self.pushButton_Refresh_view.clicked.connect(self.refreshed_button_pressed)
         self.button_create_user.clicked.connect(self.sql_create_user)
         self.pushButton_deleteUser.clicked.connect(self.sql_delete_user)
+        self.pushButton_editUser.clicked.connect(self.sql_update_user)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -417,6 +420,70 @@ class Ui_MainWindow(object):
 
             db.commit()
             db.close()
+
+    def update_user_validation(self) -> bool:
+        if self.lineEdit_editUser.text() == "":
+            self.info_label_edit.setText('''The user to "edit" cant be empty.''')
+            return False
+        elif self.lineEdit_editUsername.text() == "":
+            self.info_label_edit.setText('''The new username cant be empty.''')
+            return False
+        elif self.lineEdit_editPassword.text() == "":
+            self.info_label_edit.setText('''The new password cant be empty.''')
+            return False
+        elif self.spinBox_editStorage.value() < 1:
+            self.info_label_edit.setText('''The minimum storage needs to be 1 or higher.''')
+            return False
+
+        else:
+            return True
+
+    def sql_update_user(self)->None:
+        """
+        From an username, update a row in the DB.
+        :return:
+        """
+        if self.update_user_validation():
+            old_username = self.lineEdit_editUser.text()
+            new_username = self.lineEdit_editUsername.text()
+            new_password = self.lineEdit_editPassword.text()
+            new_storage = self.spinBox_editStorage.value()
+
+            db = None
+            try:
+                db = sqlite3.connect("users.db")
+            except Exception as e:
+                print(e)
+
+            #SQL commands and cursors
+            command_update=f'''UPDATE users SET username = "{new_username}" , password = "{new_password}" , almacenamiento = "{new_storage}" WHERE username = "{old_username}";'''
+            command_check = f'''SELECT username FROM users WHERE username = "{old_username}"'''
+            cursor = db.cursor()
+
+            #CHECK for match
+            cursor.execute(command_check)
+            if cursor.fetchone():
+                try:
+                    print(f"Updated the user: {old_username}")
+                    self.info_label_edit.setText(f"Udated the user: {old_username}")
+                    cursor.execute(command_update)
+
+                    self.lineEdit_editUser.setText("")
+                    self.lineEdit_editUsername.setText("")
+                    self.lineEdit_editPassword.setText("")
+                    self.spinBox_editStorage.setValue(0)
+
+                except Exception as e:
+                    print(f"Failed the update, traceback: {e}")
+            else:
+                self.info_label_edit.setText('''Username doesnt exists''')
+
+            db.commit()
+            db.close()
+
+
+
+
 
     def sql_delete_user(self)->None:
         """
