@@ -293,6 +293,7 @@ class Ui_MainWindow(object):
         # actions and events
         self.pushButton_Refresh_view.clicked.connect(self.refreshed_button_pressed)
         self.button_create_user.clicked.connect(self.sql_create_user)
+        self.pushButton_deleteUser.clicked.connect(self.sql_delete_user)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -375,7 +376,7 @@ class Ui_MainWindow(object):
         elif self.lineEdit_createUsername.text() != "" and self.lineEdit_createPassword.text() != "" and self.spinBox_storage_createUser.value() != 0:
             return True
 
-    def sql_create_user(self):
+    def sql_create_user(self)->None:
         """
         Creates an user from the username and password labes, and the storage capacity from the selection box.
         :return: None
@@ -416,6 +417,48 @@ class Ui_MainWindow(object):
 
             db.commit()
             db.close()
+
+    def sql_delete_user(self)->None:
+        """
+        Deletes an user, from a given name
+        :return: None
+        """
+        if self.lineEdit_deleteUser.text() == "":
+            self.info_label_delete_2.setText("Username cant be empty")
+        elif self.lineEdit_deleteUser.text() != "":
+            delete_username = str(self.lineEdit_deleteUser.text())
+
+            db = None
+            try:
+                db = sqlite3.connect("users.db")
+            except Exception as e:
+                print(e)
+
+            #SQL commands and cursors
+            command_delete = f'''DELETE FROM users WHERE username = "{delete_username}";'''
+            command_search = f'''SELECT username FROM users WHERE username = "{delete_username}";'''
+            cursor = db.cursor()
+
+            #Check
+            cursor.execute(command_search)
+            if cursor.fetchone():
+                try:
+                    cursor.execute(command_delete)
+                    self.info_label_delete_2.setText(f'''The user: "{delete_username}", was succesfully deleted from the system.''')
+                    self.lineEdit_deleteUser.setText("")
+                    #TODO: delete the user from the ftpserverlib
+                except Exception as e:
+                    print(f"Failed the creation of user, traceback: {e}")
+            else:
+                msg = QMessageBox()
+                msg.setWindowTitle("Username doesnt exist")
+                msg.setText("This user doesnt exist")
+                msg.setStandardButtons(QMessageBox.Ok)
+                x = msg.exec_()
+
+            db.commit()
+            db.close()
+
 
 
 
