@@ -1,45 +1,75 @@
-import re
-from enum import Enum
+#!/usr/bin/env python
+# --*--codig: utf8 --*--
 
-def url_check(url):
-    regex = re.compile(r'^ftps?://(?:\w+(?:\w+)@)?\S+$')
-    if regex.match(url):
-        return True
-    return False
 
-class FileType(Enum):
-    FILE = 0
-    DIR = 1
-    LINK = 2
+import time
+import os
+import stat
 
-class FtpFile:
-    def __init__(self):
-        self.filename = None
-        self.filetype = FileType.FILE
-        self.permission = 0o644
+# linux
+if os.name == 'posix':
+    import grp
+    import pwd
 
-filetypes = {'-': FileType.FILE, 'd': FileType.DIR, 'l': FileType.LINK}
-permissions = {
-    '---': 0,
-    '--x': 1,
-    '-w-': 2,
-    '-wx': 3,
-    'r--': 4,
-    'r-x': 5,
-    'rw-': 6,
-    'rwx': 7
-}
 
-def parse_ftp(filelist):
-    files = []
-    for line in filelist:
-        f = FtpFile()
-        linep = line.split()
-        linep = linep[0:9]  # ignore space in file name
-        linep[8] = line[line.index(linep[8]):]
-        f.filetype = filetypes[linep[0][0]]
-        f.filename = linep[8].encode('iso-8859-1').decode('utf-8')
-        f.permission = (permissions[linep[0][1:4]]*8+permissions[linep[0][4:7]])*8+permissions[linep[0][7:10]]
-        files.append(f)
+def fileProperty(filepath):
+    """
+    return information from given file, like this "-rw-r--r-- 1 User Group 312 Aug 1 2014 filename"
+    """
+    st = os.stat(filepath) # 
 
-    return files
+    fileMessage = [ ]
+
+    def _getFileMode( ):
+
+        # linux
+        if os.name == 'posix':
+            modes = [
+                stat.S_IRUSR, stat.S_IWUSR, stat.S_IXUSR,
+                stat.S_IRGRP, stat.S_IWGRP, stat.S_IXGRP,
+                stat.S_IROTH, stat.S_IWOTH, stat.S_IXOTH,
+            ]
+            mode     = st.st_mode
+            fullmode = ''
+            fullmode += os.path.isdir(filepath) and 'd' or '-'
+
+            for i in range(9):
+                fullmode += bool(mode & modes[i]) and 'rwxrwxrwx'[i] or '-'
+
+        # windows, only record file or folder
+        else:
+            # file or folder
+            fullmode = os.path.isdir(filepath) and 'folder' or 'file'
+
+        return fullmode
+
+
+    def _getFilesNumber( ):
+        return str(st.st_nlink)
+
+    def _getUser( ):
+        if os.name == 'posix':
+            return pwd.getpwuid(st.st_uid).pw_name
+        else:
+            return ''
+
+    def _getGroup( ):
+        if os.name == 'posix':
+            return grp.getgrgid(st.st_gid).gr_name
+        else:
+            return ''
+
+    def _getSize( ):
+        return str(st.st_size)
+
+    def _getLastTime( ):
+        return time.strftime('%b %d %H:%M', time.gmtime(st.st_mtime))
+    
+
+    for func in ('_getFileMode()', '_getFilesNumber()', '_getUser()', '_getGroup()', '_getSize()', '_getLastTime()'):
+        fileMessage.append(eval(func))
+
+
+    fileMessage.append(os.path.basename(filepath))
+
+    return ' '.join(fileMessage)

@@ -35,7 +35,7 @@ def create_users_fromdb(autorizer) -> None:
         try:
             user_dir(user)
             autorizer.add_user(user, password, f"data/storage/{user}", perm="elradfmw")
-            LOG.info("Created user: %s with dir: /data/storage/%s", user, password)
+            LOG.info("Created user: %s with dir: /data/storage/%s", user, user)
         except (IOError, ValueError):
             LOG.exception("Failed to create directory for user: %s", user)
 
@@ -76,7 +76,7 @@ def storage_path() -> str:
     return "data/storage"
 
 
-def run_server() -> None:
+if __name__ == "__main__":
     """
     Setting up logs and making dirs for the working server
     """
