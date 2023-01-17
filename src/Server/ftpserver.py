@@ -25,7 +25,7 @@ def create_users_fromdb(autorizer) -> None:
 
     # SQL commands and cursors
     cursor = db.cursor()
-    command = "SELECT user, password FROM users"
+    command = "SELECT username, password FROM users"
 
     result = cursor.execute(command)
 

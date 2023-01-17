@@ -13,6 +13,8 @@ import sqlite3
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QTableWidgetItem
+
+from src.Server.ftpserver import refresh_users
 from src.Server.utils import get_ip
 
 
@@ -336,7 +338,7 @@ class Ui_MainWindow(object):
     def refreshed_button_pressed(self) -> None:
         self.sql_populate_table()
         self.ip_label_update()
-        # run_server()
+        refresh_users()
 
     def sql_populate_table(self) -> None:
         """
