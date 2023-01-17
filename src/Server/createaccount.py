@@ -92,7 +92,7 @@ class Ui_Form(object):
         self.label_2.setText(_translate("Form", "Username:"))
         self.label_3.setText(_translate("Form", "Password:"))
 
-    def lineEdite_validation(self)->bool:
+    def lineEdite_validation(self) -> bool:
         if self.lineEditPassword.text() == "" and self.lineEditUsername.text() == "":
             self.checkinputlabel.setText("Credentials cant be empty")
             self.lineEditUsername.setText("")
@@ -112,7 +112,6 @@ class Ui_Form(object):
             return False
         elif self.lineEditPassword.text() != "" and self.lineEditUsername.text() != "":
             return True
-
 
     def create_clicked(self) -> None:
 
@@ -134,7 +133,7 @@ class Ui_Form(object):
             msg.buttonClicked.connect(self.ok_button_clicked)
             x = msg.exec_()
 
-    def sql_admin_login(self)->None:
+    def sql_admin_login(self) -> None:
         """
         Logs in with an existing admin account if possible
         :return:None
@@ -167,9 +166,6 @@ class Ui_Form(object):
 
             db.commit()
             db.close()
-
-
-
 
     def sql_create_admin(self) -> None:
         """
@@ -207,7 +203,7 @@ class Ui_Form(object):
             else:
                 print("Created 1 admin")
                 cursor.execute(command_insert, (self.username, self.password))
-                #src.Server.ftpserver.start()
+                # src.Server.ftpserver.start()
         db.commit()
         db.close()
 
@@ -225,7 +221,6 @@ class Ui_Form(object):
         self.window.show()
         self.ui.refreshed_button_pressed()
         Form.close()
-
 
 
 if __name__ == "__main__":
