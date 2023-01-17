@@ -1,24 +1,56 @@
 import os
 import logging
 import platform
+import sqlite3
 
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
-from src.Server.utils import setup_logger
+from src.Server.utils import setup_logger, user_dir, get_ip
 from environment import env
-from pathlib import Path
-import ip
 
 LOG = logging.getLogger("server")
 
-def main(server_ip: str, storage_path: str) -> None:
 
+def create_users_fromdb(autorizer) -> None:
+    """
+    Populates the ftp server with users and creates the necessary directories
+    :return:
+    """
+    db = None
+    try:
+        db = sqlite3.connect("users.db")
+    except Exception as e:
+        print(e)
+
+    # SQL commands and cursors
+    cursor = db.cursor()
+    command = "SELECT user, password FROM users"
+
+    result = cursor.execute(command)
+
+    for row_number, row_data in enumerate(result):
+        user = row_data[0]
+        password = row_data[1]
+        try:
+            user_dir(user)
+            autorizer.add_user(user, password, f"data/storage/{user}", perm="elradfmw")
+            LOG.info("Created user: %s with dir: /data/storage/%s", user, password)
+        except (IOError, ValueError):
+            LOG.exception("Failed to create directory for user: %s", user)
+
+
+def refresh_users() -> None:
+    authorizer = DummyAuthorizer()
+    create_users_fromdb(authorizer)
+
+
+def main(server_ip: str, path: str) -> None:
     authorizer = DummyAuthorizer()
 
-    # TODO: The line bellow creates the users for our ftp server, if we want multiple users we would need to have more lines of these.
-    authorizer.add_user(env.USER, env.PASSWORD, storage_path, perm="elradfmwMT")
-
+    # TODO: The line below creates the users for our ftp server, if we want multiple users we would need to have more lines of these.
+    authorizer.add_user(env.USER, env.PASSWORD, path, perm="elradfmwMT")
+    create_users_fromdb(authorizer)
 
     handler = FTPHandler
     handler.authorizer = authorizer
@@ -36,23 +68,22 @@ def main(server_ip: str, storage_path: str) -> None:
 
 
 def storage_path() -> str:
-    if not os.path.exists("data\storage"):
-        print(f"Relative path `data\stprage` does not exist")
-        LOG.info(f"FAILIURE: relative path `data\stprage` wasnt created by the logger")
+    if not os.path.exists("data/storage"):
+        print("Relative path `data/storage` does not exist")
+        LOG.info("FAILURE: relative path `data/storage` wasn't created by the logger")
     else:
-        print("Path data\storage is created, succesfully accessed")
-    return "data\storage"
+        print("Path data/storage is created, succesfully accessed")
+    return "data/storage"
 
 
-# TODO: Divide the and above code to an separate "Service.py" class.
-if __name__ == "__main__":
-    server_ip = ip.ip.ip.get_ip()
-    '''
+def run_server() -> None:
+    """
     Setting up logs and making dirs for the working server
-    '''
+    """
+    server_ip = get_ip()
     try:
         setup_logger(logger_name="server")
-        storage_path = storage_path()
+        _storage = storage_path()
         logging.basicConfig(filename='data/logs/pyftpd.log', level=logging.INFO)
         logging.basicConfig(level=logging.DEBUG)
         print(f"FTP server is running on the ip: {server_ip}")
@@ -61,13 +92,11 @@ if __name__ == "__main__":
         LOG.info(
             f"Running on: {platform.system()} {platform.release()} ({os.name}) on the ip: {server_ip}"
         )
+        main(server_ip, _storage)
     except Exception as e:
         exception = f"{type(e).__name__}: (e)"
         print(f"Failed to setup logger and/or ftp folder:\n {exception}")
         LOG.info(
             f"Failed to setup logger and/or ftp folder:\n {exception}"
         )
-
-    main(server_ip, storage_path)
-
 

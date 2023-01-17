@@ -1,9 +1,18 @@
 import logging.handlers
 import os
+import socket
 import sys
 from pathlib import Path
-from typing import Any, Callable, List, Optional, Union
+from typing import Union
 
+def get_ip() -> str:
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+
+    local_ip = s.getsockname()[0]
+    print(local_ip)
+    s.close()
+    return local_ip
 
 def data_path(path: Union[Path, str], is_folder: bool = False) -> Path:
     """Return a valid local data path, docker-aware"""
@@ -21,6 +30,11 @@ def data_path(path: Union[Path, str], is_folder: bool = False) -> Path:
         os.makedirs(folder, exist_ok=True)
 
     return _path
+
+def user_dir(user_name: str) -> None:
+    """Setup basic dirs for each user"""
+    data_path(f"storage/{user_name}", is_folder=True)
+
 
 
 def setup_logger(logger_name: str = "server", level: int = logging.DEBUG) -> None:

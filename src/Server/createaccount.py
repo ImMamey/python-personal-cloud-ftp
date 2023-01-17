@@ -184,9 +184,9 @@ class Ui_Form(object):
             print(e)
 
         # SQL commands and cursors
-        command_check = f'''SELECT COUNT(*) FROM admins'''
-        command_insert = f'''INSERT INTO admins(username,password) values("{self.username}" , "{self.password}")'''
-        command_chkrepeatedadmin = f'''SELECT username FROM admins where username = "{self.username}";'''
+        command_check = f'SELECT COUNT(*) FROM admins'
+        command_insert = f'INSERT INTO admins(username, password) values(? , ?)'
+        command_chkrepeatedadmin = f'SELECT username FROM admins where username = ?;'
         cursor = db.cursor()
 
         # CHECKS IF there are more than 2 ADMINS
@@ -201,12 +201,12 @@ class Ui_Form(object):
             x = msg.exec_()
 
         elif value[0] < 2:
-            cursor.execute(command_chkrepeatedadmin)
+            cursor.execute(command_chkrepeatedadmin, (self.username,))
             if not cursor.fetchone():
                 print("Repeated admin")
             else:
                 print("Created 1 admin")
-                cursor.execute(command_insert)
+                cursor.execute(command_insert, (self.username, self.password))
                 #src.Server.ftpserver.start()
         db.commit()
         db.close()
