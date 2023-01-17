@@ -103,7 +103,7 @@ class MyMainGui(QWidget,Ui_Form):
         # mkdir
         elif action == mkdir:
             try:
-                dir_name = QInputDialog.getText(self, '创建文件夹', '请输出文件夹名称', QLineEdit.Normal)
+                dir_name = QInputDialog.getText(self, 'create folder', 'Please enter the folder name', QLineEdit.Normal)
                 if not dir_name[1]:
                     return
                 # os.mkdir(os.path.join(self.local_pwd, dir_name[0]))
@@ -112,7 +112,7 @@ class MyMainGui(QWidget,Ui_Form):
                 self._set_current_item('local', dir_name[0])
 
             except FileExistsError:
-                message = QMessageBox.information(self,'文件夹已存在','文件夹名称已存在，请修改文件名称后再创建')
+                message = QMessageBox.information(self,'folder already exists','The folder name already exists, please modify the file name and create it again')
 
         # remove 
         elif action == remove:
@@ -135,7 +135,7 @@ class MyMainGui(QWidget,Ui_Form):
 
         # rename
         elif action == rename:
-            rename = QInputDialog.getText(self, '重命名', '请输出文件名', QLineEdit.Normal)
+            rename = QInputDialog.getText(self, 'Rename', 'Please output the file name', QLineEdit.Normal)
             if not rename[1]:
                 return
             pathname = os.path.join(self.local_pwd, str(item.text(0)))
@@ -146,7 +146,7 @@ class MyMainGui(QWidget,Ui_Form):
 
         # new file
         elif action == newfile:
-            file_name = QInputDialog.getText(self, '创建文件', '请输出文件名', QLineEdit.Normal)
+            file_name = QInputDialog.getText(self, 'Create a file', 'Please output the file name', QLineEdit.Normal)
             if not file_name[1]:
                 return
             try:
@@ -157,7 +157,7 @@ class MyMainGui(QWidget,Ui_Form):
                 self._set_current_item('local', file_name[0])
 
             except FileExistsError:
-                message = QMessageBox.information(self,'文件已存在','文件名已存在，请重新创建')
+                message = QMessageBox.information(self,'File already exists','The filename already exists, please create it again')
 
         else:
             return
@@ -184,7 +184,7 @@ class MyMainGui(QWidget,Ui_Form):
         
         elif action == mkdir:
             try:
-                dir_name = QInputDialog.getText(self, '创建文件夹', '请输出文件夹名称', QLineEdit.Normal)
+                dir_name = QInputDialog.getText(self, 'create folder', 'Please enter the folder name', QLineEdit.Normal)
                 if not dir_name[1]:
                     return
                 
@@ -199,7 +199,7 @@ class MyMainGui(QWidget,Ui_Form):
                 self._set_current_item('remote', dir_name[0])
 
             except:
-                message = QMessageBox.information(self,'无权限','对不起，您没有此操作的权限')
+                message = QMessageBox.information(self,'No permission','Sorry, you do not have permission for this operation')
 
         
         elif action == remove:
@@ -219,10 +219,10 @@ class MyMainGui(QWidget,Ui_Form):
                     self.updateRemoteFileList()
                     self.Remote_Filelist.setCurrentItem(self.Remote_Filelist.topLevelItem(i))
                 except:
-                    message = QMessageBox.information(self, '无权限','对不起，您没有此操作的权限')
+                    message = QMessageBox.information(self, 'No permission','Sorry, you do not have permission for this operation')
 
         elif action == rename:
-            rename = QInputDialog.getText(self, '重命名', '请输出文件名', QLineEdit.Normal)
+            rename = QInputDialog.getText(self, 'Rename', 'Please output the file name', QLineEdit.Normal)
             if not rename[1]:
                 return
             try:
@@ -232,16 +232,16 @@ class MyMainGui(QWidget,Ui_Form):
                 self.updateRemoteFileList()
                 self._set_current_item('remote', rename[0])
             except:
-                message = QMessageBox.information(self, '无权限','对不起，您没有此操作的权限')
+                message = QMessageBox.information(self, 'No permission','Sorry, you do not have permission for this operation')
         
         elif action == newfile:
-            file_name = QInputDialog.getText(self, '创建文件', '请输出文件名', QLineEdit.Normal)
+            file_name = QInputDialog.getText(self, 'Create a file', 'Please output the file name', QLineEdit.Normal)
             if not file_name[1]:
                 return
             
             for i in range(self.Remote_Filelist.topLevelItemCount()):
                 if(str(self.Remote_Filelist.topLevelItem(i).text(0)) == file_name[0]):
-                    message = QMessageBox.information(self,'文件已存在','文件名已存在，请重新创建')
+                    message = QMessageBox.information(self,'File already exists','The filename already exists, please create it again')
                     return
 
             def _remote_newfile():
@@ -267,7 +267,7 @@ class MyMainGui(QWidget,Ui_Form):
                     fp.quit()
 
                     # message = QMessageBox.information(self,'上传成功','文件上传成功')
-                    print('上传成功\n')
+                    print('uploaded successfully\n')
                     file.close()
                     os.remove(tmp_file)
 
@@ -277,7 +277,7 @@ class MyMainGui(QWidget,Ui_Form):
                     # message = QMessageBox.information(self, '无权限','对不起，您没有此操作的权限')
                     file.close()
                     os.remove(tmp_file)
-                    print('对不起，您没有此操作的权限')
+                    print('Sorry, you do not have permission for this operation')
             
             Thread(target=_remote_newfile).start()
         
@@ -362,7 +362,7 @@ class MyMainGui(QWidget,Ui_Form):
                 except:
                     file.close()
                     os.remove(tmp_file)
-                    print('对不起，您没有此操作的权限')
+                    print('Sorry, you do not have permission for this operation')
                 
             
             Thread(target=_edit_remotefile).start()
@@ -422,7 +422,7 @@ class MyMainGui(QWidget,Ui_Form):
         try:
             self.ftp.login(user=user, passwd=passwd)
         except:
-            message = QMessageBox.information(self,'登陆错误','账号密码错误，请重新输入')
+            message = QMessageBox.information(self,'login error','Account password error, please re-enter')
             self.login_again()
         self.initialize( )
 
@@ -437,7 +437,7 @@ class MyMainGui(QWidget,Ui_Form):
         try:
             self.ftp.login(user=user, passwd=passwd)
         except:
-            message=QMessageBox.information(self,'登陆错误','账号密码错误，请重新输入')
+            message=QMessageBox.information(self,'login error','Account password error, please re-enter')
             self.login_again()
 
 
@@ -760,7 +760,7 @@ class MyMainGui(QWidget,Ui_Form):
             fp.retrbinary(cmd='RETR '+srcfile, callback=callback)
         except:
             print('对不起，您没有此操作的权限')
-            # message = QMessageBox.information(self,'无权限','对不起，您没有此操作的权限')
+            # message = QMessageBox.information(self,'No permission','Sorry, you do not have permission for this operation')
 
 
         
@@ -799,7 +799,7 @@ class MyMainGui(QWidget,Ui_Form):
             fp.storbinary(cmd='STOR '+dstfile, fp=file, callback=callback)
         except:
             # message = QMessageBox.information(self,'无权限','对不起，您没有此操作的权限')
-            print('对不起，您没有此操作的权限')
+            print('Sorry, you do not have permission for this operation')
 
         
 if __name__ == "__main__":

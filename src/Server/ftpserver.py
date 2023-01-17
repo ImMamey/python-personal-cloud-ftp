@@ -48,7 +48,7 @@ def refresh_users() -> None:
 def main(server_ip: str, path: str) -> None:
     authorizer = DummyAuthorizer()
 
-    # TODO: The line below creates the users for our ftp server, if we want multiple users we would need to have more lines of these.
+
     authorizer.add_user(env.USER, env.PASSWORD, path, perm="elradfmwMT")
     create_users_fromdb(authorizer)
 
@@ -76,7 +76,7 @@ def storage_path() -> str:
     return "data/storage"
 
 
-if __name__ == "__main__":
+def start_server() -> None:
     """
     Setting up logs and making dirs for the working server
     """
