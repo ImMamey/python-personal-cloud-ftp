@@ -13,10 +13,15 @@ import sqlite3
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QTableWidgetItem
+from pyftpdlib.authorizers import DummyAuthorizer
+from pyftpdlib.handlers import FTPHandler
+from pyftpdlib.servers import FTPServer
+from src.Server.utils import setup_logger, user_dir, get_ip
+import logging
 
-from src.Server.ftpserver import refresh_users
+
 from src.Server.utils import get_ip
-
+LOG = logging.getLogger("server")
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -338,7 +343,8 @@ class Ui_MainWindow(object):
     def refreshed_button_pressed(self) -> None:
         self.sql_populate_table()
         self.ip_label_update()
-        refresh_users()
+        #TODO: link refresh users from the class Example def refreshuser, somehow, in here
+        #refresh_users()
 
     def sql_populate_table(self) -> None:
         """

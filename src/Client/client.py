@@ -798,7 +798,7 @@ class MyMainGui(QWidget,Ui_Form):
             fp.cwd(self.pwd)
             fp.storbinary(cmd='STOR '+dstfile, fp=file, callback=callback)
         except:
-            # message = QMessageBox.information(self,'无权限','对不起，您没有此操作的权限')
+            #
             print('Sorry, you do not have permission for this operation')
 
         

@@ -24,6 +24,7 @@ from src.Server.adminpanel import Ui_MainWindow
 LOG = logging.getLogger("server")
 
 
+
 class Example(QtWidgets.QMainWindow):
     def __init__(self):
         super(Example, self).__init__()
@@ -171,18 +172,101 @@ class Example(QtWidgets.QMainWindow):
             self.username = ""
             self.password = ""
 
+    def create_users_fromdb(self, autorizer) -> None:
+        """
+        Populates the ftp server with users and creates the necessary directories
+        :return:
+        """
+        db = None
+        try:
+            db = sqlite3.connect("users.db")
+        except Exception as e:
+            print(e)
+
+        # SQL commands and cursors
+        cursor = db.cursor()
+        command = "SELECT username, password FROM users"
+
+        result = cursor.execute(command)
+
+        for row_number, row_data in enumerate(result):
+            user = row_data[0]
+            password = row_data[1]
+            try:
+                user_dir(user)
+                autorizer.add_user(user, password, f"data/storage/{user}", perm="elradfmw")
+                LOG.info("Created user: %s with dir: /data/storage/%s", user, user)
+            except (IOError, ValueError):
+                LOG.exception("Failed to create directory for user: %s", user)
+
+    def create_admins_fromdb(self, autorizer) -> None:
+        """
+        Populates the ftp server with users and creates the necessary directories
+        :return:
+        """
+        db = None
+        try:
+            db = sqlite3.connect("users.db")
+        except Exception as e:
+            print(e)
+
+        # SQL commands and cursors
+        cursor = db.cursor()
+        command = "SELECT username, password FROM admins"
+
+        result = cursor.execute(command)
+
+        for row_number, row_data in enumerate(result):
+            user = row_data[0]
+            password = row_data[1]
+            try:
+                user_dir(user)
+                autorizer.add_user(user, password, f"data/", perm="elradfmwMT")
+                LOG.info("Created admin: %s with dir: /data/", user)
+            except (IOError, ValueError):
+                LOG.exception("Failed to create directory for user: %s", user)
+
+    def refresh_users(self) -> None:
+        authorizer = DummyAuthorizer()
+        self.create_users_fromdb(authorizer)
+
+    def storage_path(self) -> str:
+        if not os.path.exists("data/storage"):
+            print("Relative path `data/storage` does not exist")
+            LOG.info("FAILURE: relative path `data/storage` wasn't created by the logger")
+        else:
+            print("Path data/storage is created, succesfully accessed")
+        return "data/storage"
+
     def onClick(self):
-        print('start')
         server_ip = get_ip()
-        user = self.lineEditUser.text()
-        passw = self.lineEditPassword.text()
+        try:
+            setup_logger(logger_name="server")
+            _storage = self.storage_path()
+            logging.basicConfig(filename='data/logs/pyftpd.log', level=logging.INFO)
+            logging.basicConfig(level=logging.DEBUG)
+            print(f"FTP server is running on the ip: {server_ip}")
+            print(f"Running on: {platform.system()} {platform.release()} ({os.name})")
+            print("--------")
+            LOG.info(
+                f"Running on: {platform.system()} {platform.release()} ({os.name}) on the ip: {server_ip}"
+            )
 
-        self.authorizer.add_user(user, passw, '.', perm='elrw')
-        self.address = ('127.0.0.1', 2100)
-        self.server = ThreadedFTPServer(self.address, self.handler)
 
-        QMessageBox.information(self, "FTP Server started", "FTP Server started")
-        self.start()
+            self.authorizer.add_user(env.USER, env.PASSWORD, _storage, perm="elradfmwMT")
+            self.address = (server_ip, 2121)
+            self.server = ThreadedFTPServer(self.address, self.handler)
+
+            QMessageBox.information(self, "FTP Server started", "FTP Server started")
+            self.start()
+            self.create_users_fromdb(self.authorizer)
+            self.create_admins_fromdb(self.authorizer)
+        except Exception as e:
+            exception = f"{type(e).__name__}: (e)"
+            print(f"Failed to setup logger and/or ftp folder:\n {exception}")
+            LOG.info(
+                f"Failed to setup logger and/or ftp folder:\n {exception}"
+            )
 
     def openWindow(self):
         self.window = QtWidgets.QMainWindow()
