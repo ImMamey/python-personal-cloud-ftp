@@ -29,7 +29,7 @@ class Example(QtWidgets.QMainWindow):
     def __init__(self):
         super(Example, self).__init__()
         #TODO: absolute path is needed for the exe file
-        uic.loadUi(r'D:\GitHub\python-personal-cloud-ftp\src\Server\gui.ui', self)
+        uic.loadUi(r'gui.ui', self)
         self.username = ""
         self.password = ""
 
@@ -156,7 +156,7 @@ class Example(QtWidgets.QMainWindow):
 
         elif value[0] < 2:
             cursor.execute(command_chkrepeatedadmin, (self.username,))
-            if not cursor.fetchone():
+            if cursor.fetchone():
                 print("Repeated admin")
             else:
                 print("Created 1 admin")
@@ -273,7 +273,7 @@ class Example(QtWidgets.QMainWindow):
         self.ui.setupUi(self.window)
         self.window.show()
         self.ui.refreshed_button_pressed()
-        win.close()
+        #win.close()
 
     def _run_server(self):
         self.server.serve_forever()
