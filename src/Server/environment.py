@@ -2,9 +2,14 @@ from typing import Optional
 
 from dotenv import load_dotenv
 from pydantic import BaseSettings
+import os
+import sys
 
 # load .env in dev enviroment
-load_dotenv()
+extDataDir = os.getcwd()
+if getattr(sys, 'frozen', False):
+    extDataDir = sys._MEIPASS
+load_dotenv(dotenv_path=os.path.join(extDataDir, '.env'))
 
 
 class Environment(BaseSettings):

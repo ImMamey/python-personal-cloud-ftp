@@ -28,7 +28,8 @@ LOG = logging.getLogger("server")
 class Example(QtWidgets.QMainWindow):
     def __init__(self):
         super(Example, self).__init__()
-        uic.loadUi('gui.ui', self)
+        #TODO: absolute path is needed for the exe file
+        uic.loadUi(r'D:\GitHub\python-personal-cloud-ftp\src\Server\gui.ui', self)
         self.username = ""
         self.password = ""
 
@@ -264,9 +265,7 @@ class Example(QtWidgets.QMainWindow):
         except Exception as e:
             exception = f"{type(e).__name__}: (e)"
             print(f"Failed to setup logger and/or ftp folder:\n {exception}")
-            LOG.info(
-                f"Failed to setup logger and/or ftp folder:\n {exception}"
-            )
+            LOG.exception("Server goes brrr")
 
     def openWindow(self):
         self.window = QtWidgets.QMainWindow()
