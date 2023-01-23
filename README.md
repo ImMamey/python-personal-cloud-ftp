@@ -27,6 +27,7 @@
 ## Features
 * Upload/download/Delete files in your local network.
 * Can make multiple separated Users.
+* Can create up to 2 admin accounts to manage and create users.
 
 ---
 
