@@ -1,5 +1,5 @@
 <p align="center">
-    <h1 align="center"/> Python Personal FTP Cloud </h1>
+    <h1 align="center"/> Python FTP Cloud </h1>
 </p>
 
 <p align="center">
@@ -20,63 +20,59 @@
 
 
 ## Description
- A small and lightweight local-network based file storage and synchronization system (like Google Drive) made with python3, pyQT5, pyftplib, and Docker (Optional, can run without docker).
+ A small and lightweight local-network based file storage server (Google Drive-like) made with python3, pyQT5, pyftplib, and Docker (Optional, can run without docker).
 
 
 ---
 ## Features
-* Upload/download files in your local network.
-* The server can run in a docker container for more stability and reliability.
-* Cross-platform (windows and linux).
-* Loging system.
+* Upload/download/Delete files in your local network.
+* Can make multiple separated Users.
+
 ---
 
 
 ## Requirements
+#### Dependencies:
 * [Python 3.10+](https://www.python.org/downloads/)
-* [Mypy](http://mypy-lang.org/) (Optional: for debbugging only)
-* [Docker](https://www.docker.com/) (Optional: for the server deployment)
-* [Python FTP](https://github.com/giampaolo/pyftpdlib)
+* [ftpdlib](https://github.com/giampaolo/pyftpdlib)
 * [PyQT5](https://pypi.org/project/PyQt5/)
-* [PyQT5 Designer](https://build-system.fman.io/qt-designer-download)
+* [Pydantic](https://docs.pydantic.dev/)
+* [Sqlite3](https://docs.python.org/3/library/sqlite3.html)
 * Pyside2
+#### Dev dependencies and extras:
+* [PyQT5 Designer](https://build-system.fman.io/qt-designer-download) (To edit the front end)
+* [Mypy](http://mypy-lang.org/) (Optional: for debbugging only)
 ---
 ## Installation
-##### For development:
+
 1. Download and install [Python 3.10.8](https://www.python.org/downloads/)
 2. Download (or clone) this repository.
 3. Once the repository is opened, access to the directory through terminal/cmd.
-4. Run `pip install -U mypy`.
-5. Run `pip install PyQt5`.
-6. Run `-m pip install python-dotenv`.
-7. Run `pip install pyside2`
-8. Either run `pip install pyftpdlib` or [download the tar](https://pypi.org/project/pyftpdlib/#files) file. If you decided to download it manually, you would need to manually add the file trough your IDE.
-9. Install Docker. You can find a guide to do this in [here](https://docs.docker.com/engine/install/ubuntu/). 
->    For windows, you would need to either install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) , or to download the [docker desktop App](https://www.docker.com/products/docker-desktop/) and enable CPU virtualization in your PC BIO's
-##### Using the app only:
-1. Download and install [Python 3.10.8](https://www.python.org/downloads/)
-2. Download the latest [release](https://github.com/ImMamey/python-personal-cloud-ftp/releases).
-3. Execute the file.
 
-
+##### With poetry:
+4. Run `poetry install` in the repository to install all the dependencies.
+##### Without poetry:
+4. Run `pip install -U mypy python-dotenv PyQt5 pyside2 pyftpdlib pydantic pywin32`.
+>    You would need to install the exact versions that are described in the `project.toml`
 ---
 
-
-
-
-## Running the Client
-1. 
-2. 
-
 ## Running the Server
-1.
-2.
+#### From your IDE
+* Click on `src/server/app.py` -> Run
+#### From lastest .exe:
+* Get the lastest [server release]() and execute it
 
+## Running a user client
+#### From your IDE
+* Click on `src/client/client.py`-> Run
+#### From lastest .exe:
+* Get the lastest [client release]() and execute it
 ---
 
 
 ## References
 * [Requirements (wiki-docs)]()
+
 
 ---
 ## License
