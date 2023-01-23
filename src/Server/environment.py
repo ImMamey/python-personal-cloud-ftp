@@ -7,9 +7,9 @@ import sys
 
 # load .env in dev enviroment
 extDataDir = os.getcwd()
-if getattr(sys, 'frozen', False):
+if getattr(sys, "frozen", False):
     extDataDir = sys._MEIPASS
-load_dotenv(dotenv_path=os.path.join(extDataDir, '.env'))
+load_dotenv(dotenv_path=os.path.join(extDataDir, ".env"))
 
 
 class Environment(BaseSettings):

@@ -122,11 +122,15 @@ class Ui_Form(object):
             password = self.lineEditPassword.text()
 
             msg = QMessageBox()
-            msg.setWindowTitle("Attention, please save your credentials somewhere safe!")
-            msg.setText(f"Please, save your credentials somewhere safe, and then click on OK\n\n"
-                        f"Your current Username is: {username}\n"
-                        f"Your current Password is: {password}\n\n"
-                        f"If you want to use different credentials, please click on Retry")
+            msg.setWindowTitle(
+                "Attention, please save your credentials somewhere safe!"
+            )
+            msg.setText(
+                f"Please, save your credentials somewhere safe, and then click on OK\n\n"
+                f"Your current Username is: {username}\n"
+                f"Your current Password is: {password}\n\n"
+                f"If you want to use different credentials, please click on Retry"
+            )
             self.username = username
             self.password = password
 
@@ -151,7 +155,7 @@ class Ui_Form(object):
                 print(e)
 
             # SQL commands and cursors
-            command_login = f'''SELECT username FROM admins where username = "{self.username}" and password = "{self.password}";'''
+            command_login = f"""SELECT username FROM admins where username = "{self.username}" and password = "{self.password}";"""
             cursor = db.cursor()
 
             # Check for admin match
@@ -182,9 +186,9 @@ class Ui_Form(object):
             print(e)
 
         # SQL commands and cursors
-        command_check = f'SELECT COUNT(*) FROM admins'
-        command_insert = f'INSERT INTO admins(username, password) values(? , ?)'
-        command_chkrepeatedadmin = f'SELECT username FROM admins where username = ?;'
+        command_check = f"SELECT COUNT(*) FROM admins"
+        command_insert = f"INSERT INTO admins(username, password) values(? , ?)"
+        command_chkrepeatedadmin = f"SELECT username FROM admins where username = ?;"
         cursor = db.cursor()
 
         # CHECKS IF there are more than 2 ADMINS

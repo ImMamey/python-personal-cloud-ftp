@@ -48,10 +48,12 @@ class UiMainWindow(object):
         self.table_users.setGeometry(QtCore.QRect(40, 61, 661, 361))
         self.table_users.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.table_users.setAutoFillBackground(False)
-        self.table_users.setStyleSheet("font: 9pt \"MS Shell Dlg 2\";")
+        self.table_users.setStyleSheet('font: 9pt "MS Shell Dlg 2";')
         self.table_users.setFrameShape(QtWidgets.QFrame.Box)
         self.table_users.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.table_users.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.table_users.setSizeAdjustPolicy(
+            QtWidgets.QAbstractScrollArea.AdjustToContents
+        )
         self.table_users.setObjectName("table_users")
         self.table_users.setColumnCount(3)
         self.table_users.setRowCount(0)
@@ -68,13 +70,19 @@ class UiMainWindow(object):
         self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
         self.label_11 = QtWidgets.QLabel(self.horizontalLayoutWidget_5)
-        self.label_11.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        self.label_11.setAlignment(
+            QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter
+        )
         self.label_11.setObjectName("label_11")
         self.horizontalLayout_8.addWidget(self.label_11)
-        self.lineEdit_searchUser_view = QtWidgets.QLineEdit(self.horizontalLayoutWidget_5)
+        self.lineEdit_searchUser_view = QtWidgets.QLineEdit(
+            self.horizontalLayoutWidget_5
+        )
         self.lineEdit_searchUser_view.setObjectName("lineEdit_searchUser_view")
         self.horizontalLayout_8.addWidget(self.lineEdit_searchUser_view)
-        self.pushButton_searchUser_view = QtWidgets.QPushButton(self.horizontalLayoutWidget_5)
+        self.pushButton_searchUser_view = QtWidgets.QPushButton(
+            self.horizontalLayoutWidget_5
+        )
         self.pushButton_searchUser_view.setObjectName("pushButton_searchUser_view")
         self.horizontalLayout_8.addWidget(self.pushButton_searchUser_view)
         self.pushButton_Refresh_view = QtWidgets.QPushButton(self.tab)
@@ -114,7 +122,9 @@ class UiMainWindow(object):
         self.horizontalLayout_3.addWidget(self.label_3)
         self.label_4 = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.label_4.setLayoutDirection(QtCore.Qt.RightToLeft)
-        self.label_4.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        self.label_4.setAlignment(
+            QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter
+        )
         self.label_4.setObjectName("label_4")
         self.horizontalLayout_3.addWidget(self.label_4)
         self.spinBox_storage_createUser = QtWidgets.QSpinBox(self.verticalLayoutWidget)
@@ -133,8 +143,9 @@ class UiMainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.info_label_create.setFont(font)
-        self.info_label_create.setStyleSheet("font: 9pt \"MS Shell Dlg 2\";\n"
-                                             "color: rgb(255, 0, 0);")
+        self.info_label_create.setStyleSheet(
+            'font: 9pt "MS Shell Dlg 2";\n' "color: rgb(255, 0, 0);"
+        )
         self.info_label_create.setText("")
         self.info_label_create.setAlignment(QtCore.Qt.AlignCenter)
         self.info_label_create.setObjectName("info_label_create")
@@ -178,7 +189,9 @@ class UiMainWindow(object):
         self.horizontalLayout_6.addWidget(self.label_8)
         self.label_9 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
         self.label_9.setLayoutDirection(QtCore.Qt.RightToLeft)
-        self.label_9.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        self.label_9.setAlignment(
+            QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter
+        )
         self.label_9.setObjectName("label_9")
         self.horizontalLayout_6.addWidget(self.label_9)
         self.spinBox_editStorage = QtWidgets.QSpinBox(self.verticalLayoutWidget_2)
@@ -197,8 +210,9 @@ class UiMainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.info_label_edit.setFont(font)
-        self.info_label_edit.setStyleSheet("font: 9pt \"MS Shell Dlg 2\";\n"
-                                           "color: rgb(255, 0, 0);")
+        self.info_label_edit.setStyleSheet(
+            'font: 9pt "MS Shell Dlg 2";\n' "color: rgb(255, 0, 0);"
+        )
         self.info_label_edit.setText("")
         self.info_label_edit.setAlignment(QtCore.Qt.AlignCenter)
         self.info_label_edit.setObjectName("info_label_edit")
@@ -226,8 +240,9 @@ class UiMainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.info_label_delete.setFont(font)
-        self.info_label_delete.setStyleSheet("font: 9pt \"MS Shell Dlg 2\";\n"
-                                             "color: rgb(255, 0, 0);")
+        self.info_label_delete.setStyleSheet(
+            'font: 9pt "MS Shell Dlg 2";\n' "color: rgb(255, 0, 0);"
+        )
         self.info_label_delete.setText("")
         self.info_label_delete.setAlignment(QtCore.Qt.AlignCenter)
         self.info_label_delete.setObjectName("info_label_delete")
@@ -243,8 +258,9 @@ class UiMainWindow(object):
         font.setItalic(False)
         font.setWeight(50)
         self.info_label_delete_2.setFont(font)
-        self.info_label_delete_2.setStyleSheet("font: 9pt \"MS Shell Dlg 2\";\n"
-                                               "color: rgb(255, 0, 0);")
+        self.info_label_delete_2.setStyleSheet(
+            'font: 9pt "MS Shell Dlg 2";\n' "color: rgb(255, 0, 0);"
+        )
         self.info_label_delete_2.setText("")
         self.info_label_delete_2.setAlignment(QtCore.Qt.AlignCenter)
         self.info_label_delete_2.setObjectName("info_label_delete_2")
@@ -266,8 +282,9 @@ class UiMainWindow(object):
         font.setItalic(False)
         font.setWeight(9)
         self.label_ipAddress.setFont(font)
-        self.label_ipAddress.setStyleSheet("font: 75 11pt \"MS Shell Dlg 2\";\n"
-                                           "color: rgb(255, 0, 0);")
+        self.label_ipAddress.setStyleSheet(
+            'font: 75 11pt "MS Shell Dlg 2";\n' "color: rgb(255, 0, 0);"
+        )
         self.label_ipAddress.setText("")
         self.label_ipAddress.setAlignment(QtCore.Qt.AlignCenter)
         self.label_ipAddress.setObjectName("label_ipAddress")
@@ -316,23 +333,33 @@ class UiMainWindow(object):
         self.label_11.setText(_translate("MainWindow", "Search for User:"))
         self.pushButton_searchUser_view.setText(_translate("MainWindow", "Search"))
         self.pushButton_Refresh_view.setText(_translate("MainWindow", "Refresh"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "View all Users"))
+        self.tabWidget.setTabText(
+            self.tabWidget.indexOf(self.tab), _translate("MainWindow", "View all Users")
+        )
         self.label.setText(_translate("MainWindow", "Username:    "))
         self.label_2.setText(_translate("MainWindow", "Password:     "))
         self.label_3.setText(_translate("MainWindow", "Storage Avaliable:"))
         self.label_4.setText(_translate("MainWindow", "(Mb)"))
         self.button_create_user.setText(_translate("MainWindow", "Create"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Create User"))
+        self.tabWidget.setTabText(
+            self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Create User")
+        )
         self.label_5.setText(_translate("MainWindow", "Name of the user to edit:"))
         self.label_6.setText(_translate("MainWindow", "New Username:    "))
         self.label_7.setText(_translate("MainWindow", "New Password:     "))
-        self.label_8.setText(_translate("MainWindow", "Change Storage Avaliable for user:"))
+        self.label_8.setText(
+            _translate("MainWindow", "Change Storage Avaliable for user:")
+        )
         self.label_9.setText(_translate("MainWindow", "(Mb)"))
         self.pushButton_editUser.setText(_translate("MainWindow", "Edit"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainWindow", "Edit User"))
+        self.tabWidget.setTabText(
+            self.tabWidget.indexOf(self.tab_4), _translate("MainWindow", "Edit User")
+        )
         self.label_10.setText(_translate("MainWindow", "Username to delete:"))
         self.pushButton_deleteUser.setText(_translate("MainWindow", "Delete"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Delete User"))
+        self.tabWidget.setTabText(
+            self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Delete User")
+        )
         self.label_12.setText(_translate("MainWindow", "Server IP Address:"))
         self.menuOptions.setTitle(_translate("MainWindow", "Options"))
         self.actionRefresh.setText(_translate("MainWindow", "Refresh"))
@@ -359,7 +386,7 @@ class UiMainWindow(object):
 
         # SQL commands and cursors
         cursor = db.cursor()
-        command = 'SELECT * FROM users'
+        command = "SELECT * FROM users"
 
         result = cursor.execute(command)
         self.table_users.setRowCount(0)
@@ -367,10 +394,15 @@ class UiMainWindow(object):
         for row_number, row_data in enumerate(result):
             self.table_users.insertRow(row_number)
             for column_number, data in enumerate(row_data):
-                self.table_users.setItem(row_number, column_number - 1, QTableWidgetItem(str(data)))
+                self.table_users.setItem(
+                    row_number, column_number - 1, QTableWidgetItem(str(data))
+                )
 
     def linecreate_validation(self) -> bool:
-        if self.lineEdit_createUsername.text() == "" and self.lineEdit_createPassword.text() == "":
+        if (
+            self.lineEdit_createUsername.text() == ""
+            and self.lineEdit_createPassword.text() == ""
+        ):
             self.info_label_create.setText("Credentials cant be empty")
             return False
         elif self.lineEdit_createUsername.text() == "":
@@ -380,7 +412,9 @@ class UiMainWindow(object):
             self.info_label_create.setText("Please enter a valid password")
             return False
         elif self.spinBox_storage_createUser.value() == 0:
-            self.info_label_create.setText("The minimun storage capacity cant be less than 0")
+            self.info_label_create.setText(
+                "The minimun storage capacity cant be less than 0"
+            )
             return False
         return True
 
@@ -412,13 +446,18 @@ class UiMainWindow(object):
             if cursor.fetchone():
                 msg = QMessageBox()
                 msg.setWindowTitle("Username already in use!")
-                msg.setText(f"The username you wanted to create already exists! Please use a different username")
+                msg.setText(
+                    f"The username you wanted to create already exists! Please use a different username"
+                )
                 msg.setStandardButtons(QMessageBox.Ok)
                 msg.exec_()
             else:
                 try:
                     print(f"Created the user: {create_username}")
-                    cursor.execute(cmdinsert_create_user, (create_username, create_password, create_almacenamiento))
+                    cursor.execute(
+                        cmdinsert_create_user,
+                        (create_username, create_password, create_almacenamiento),
+                    )
                 except Exception as e:
                     print(f"Failed the creation of user, traceback: {e}")
 
@@ -427,16 +466,18 @@ class UiMainWindow(object):
 
     def update_user_validation(self) -> bool:
         if self.lineEdit_editUser.text() == "":
-            self.info_label_edit.setText('''The user to "edit" cant be empty.''')
+            self.info_label_edit.setText("""The user to "edit" cant be empty.""")
             return False
         elif self.lineEdit_editUsername.text() == "":
-            self.info_label_edit.setText('''The new username cant be empty.''')
+            self.info_label_edit.setText("""The new username cant be empty.""")
             return False
         elif self.lineEdit_editPassword.text() == "":
-            self.info_label_edit.setText('''The new password cant be empty.''')
+            self.info_label_edit.setText("""The new password cant be empty.""")
             return False
         elif self.spinBox_editStorage.value() < 1:
-            self.info_label_edit.setText('''The minimum storage needs to be 1 or higher.''')
+            self.info_label_edit.setText(
+                """The minimum storage needs to be 1 or higher."""
+            )
             return False
 
         else:
@@ -458,8 +499,8 @@ class UiMainWindow(object):
                 db = sqlite3.connect("users.db")
 
                 # SQL commands and cursors
-                command_update = 'UPDATE users SET username = ?, password = ?, almacenamiento = ? WHERE username = ?;'
-                command_check = 'SELECT username FROM users WHERE username = ?'
+                command_update = "UPDATE users SET username = ?, password = ?, almacenamiento = ? WHERE username = ?;"
+                command_check = "SELECT username FROM users WHERE username = ?"
                 cursor = db.cursor()
 
                 # CHECK for match
@@ -467,8 +508,13 @@ class UiMainWindow(object):
                 if cursor.fetchone():
                     try:
                         print(f"Updated the user: {old_username}")
-                        self.info_label_edit.setText(f"Updated the user: {old_username}")
-                        cursor.execute(command_update, (new_username, new_password, new_storage, old_username))
+                        self.info_label_edit.setText(
+                            f"Updated the user: {old_username}"
+                        )
+                        cursor.execute(
+                            command_update,
+                            (new_username, new_password, new_storage, old_username),
+                        )
 
                         self.lineEdit_editUser.setText("")
                         self.lineEdit_editUsername.setText("")
@@ -478,7 +524,7 @@ class UiMainWindow(object):
                     except Exception as e:
                         print(f"Failed the update, traceback: {e}")
                 else:
-                    self.info_label_edit.setText('''Username doesnt exists''')
+                    self.info_label_edit.setText("""Username doesnt exists""")
 
             except Exception as e:
                 print(e)
@@ -505,8 +551,8 @@ class UiMainWindow(object):
                 print(e)
 
             # SQL commands and cursors
-            command_delete = 'DELETE FROM users WHERE username = ?;'
-            command_search = 'SELECT username FROM users WHERE username = ?;'
+            command_delete = "DELETE FROM users WHERE username = ?;"
+            command_search = "SELECT username FROM users WHERE username = ?;"
             cursor = db.cursor()
 
             # Check
@@ -515,7 +561,8 @@ class UiMainWindow(object):
                 try:
                     cursor.execute(command_delete, (delete_username,))
                     self.info_label_delete_2.setText(
-                        f'The user: "{delete_username}", was successfully deleted from the system.')
+                        f'The user: "{delete_username}", was successfully deleted from the system.'
+                    )
                     self.lineEdit_deleteUser.setText("")
                     # TODO: delete the user from the ftpserverlib
                 except Exception as e:

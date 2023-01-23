@@ -25,10 +25,10 @@ LOG = logging.getLogger("server")
 
 
 class Example(QtWidgets.QMainWindow):
-    def __init__(self):
+    def __init__(self) -> None:
         super(Example, self).__init__()
         # TODO: absolute path is needed for the exe file
-        uic.loadUi(r'gui.ui', self)
+        uic.loadUi(r"gui.ui", self)
         self.username = ""
         self.password = ""
 
@@ -76,11 +76,15 @@ class Example(QtWidgets.QMainWindow):
             password = self.lineEditPassword.text()
 
             msg = QMessageBox()
-            msg.setWindowTitle("Attention, please save your credentials somewhere safe!")
-            msg.setText(f"Please, save your credentials somewhere safe, and then click on OK\n\n"
-                        f"Your current Username is: {username}\n"
-                        f"Your current Password is: {password}\n\n"
-                        f"If you want to use different credentials, please click on Retry")
+            msg.setWindowTitle(
+                "Attention, please save your credentials somewhere safe!"
+            )
+            msg.setText(
+                f"Please, save your credentials somewhere safe, and then click on OK\n\n"
+                f"Your current Username is: {username}\n"
+                f"Your current Password is: {password}\n\n"
+                f"If you want to use different credentials, please click on Retry"
+            )
             self.username = username
             self.password = password
 
@@ -105,7 +109,7 @@ class Example(QtWidgets.QMainWindow):
                 print(e)
 
             # SQL commands and cursors
-            command_login = f'''SELECT username FROM admins where username = "{self.username}" and password = "{self.password}";'''
+            command_login = f"""SELECT username FROM admins where username = "{self.username}" and password = "{self.password}";"""
             cursor = db.cursor()
 
             # Check for admin match
@@ -136,9 +140,9 @@ class Example(QtWidgets.QMainWindow):
             print(e)
 
         # SQL commands and cursors
-        command_check = f'SELECT COUNT(*) FROM admins'
-        command_insert = f'INSERT INTO admins(username, password) values(? , ?)'
-        command_chkrepeatedadmin = f'SELECT username FROM admins where username = ?;'
+        command_check = f"SELECT COUNT(*) FROM admins"
+        command_insert = f"INSERT INTO admins(username, password) values(? , ?)"
+        command_chkrepeatedadmin = f"SELECT username FROM admins where username = ?;"
         cursor = db.cursor()
 
         # CHECKS IF there are more than 2 ADMINS
@@ -192,7 +196,9 @@ class Example(QtWidgets.QMainWindow):
             password = row_data[1]
             try:
                 user_dir(user)
-                autorizer.add_user(user, password, f"data/storage/{user}", perm="elradfmw")
+                autorizer.add_user(
+                    user, password, f"data/storage/{user}", perm="elradfmw"
+                )
                 LOG.info("Created user: %s with dir: /data/storage/%s", user, user)
             except (IOError, ValueError):
                 LOG.exception("Failed to create directory for user: %s", user)
@@ -231,7 +237,9 @@ class Example(QtWidgets.QMainWindow):
     def storage_path(self) -> str:
         if not os.path.exists("data/storage"):
             print("Relative path `data/storage` does not exist")
-            LOG.info("FAILURE: relative path `data/storage` wasn't created by the logger")
+            LOG.info(
+                "FAILURE: relative path `data/storage` wasn't created by the logger"
+            )
         else:
             print("Path data/storage is created, succesfully accessed")
         return "data/storage"
@@ -241,7 +249,7 @@ class Example(QtWidgets.QMainWindow):
         try:
             setup_logger(logger_name="server")
             _storage = self.storage_path()
-            logging.basicConfig(filename='data/logs/pyftpd.log', level=logging.INFO)
+            logging.basicConfig(filename="data/logs/pyftpd.log", level=logging.INFO)
             logging.basicConfig(level=logging.DEBUG)
             print(f"FTP server is running on the ip: {server_ip}")
             print(f"Running on: {platform.system()} {platform.release()} ({os.name})")
@@ -250,7 +258,9 @@ class Example(QtWidgets.QMainWindow):
                 f"Running on: {platform.system()} {platform.release()} ({os.name}) on the ip: {server_ip}"
             )
 
-            self.authorizer.add_user(env.USER, env.PASSWORD, _storage, perm="elradfmwMT")
+            self.authorizer.add_user(
+                env.USER, env.PASSWORD, _storage, perm="elradfmwMT"
+            )
             self.address = (server_ip, 2121)
             self.server = ThreadedFTPServer(self.address, self.handler)
 
@@ -280,7 +290,7 @@ class Example(QtWidgets.QMainWindow):
         srv.start()
 
     def onStop(self):
-        print('stop')
+        print("stop")
         self.server.close_all()
         QMessageBox.information(self, "FTP Server stopped", "FTP Server stopped")
 
