@@ -61,13 +61,13 @@
 #### From your IDE
 * Click on `src/server/app.py` -> Run
 #### From lastest .exe:
-* Get the lastest [server release]() and execute it
+* Get the lastest [server release](https://github.com/ImMamey/python-personal-cloud-ftp/releases) and execute it
 
 ## Running a user client
 #### From your IDE
 * Click on `src/client/client.py`-> Run
 #### From lastest .exe:
-* Get the lastest [client release]() and execute it
+* Get the lastest [client release](https://github.com/ImMamey/python-personal-cloud-ftp/releases) and execute it
 ---
 
 
