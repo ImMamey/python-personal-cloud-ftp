@@ -15,7 +15,7 @@ from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QTableWidgetItem
 import logging
 
-from src.Server.utils import get_ip
+from server.utils import get_ip
 
 LOG = logging.getLogger("server")
 
@@ -360,7 +360,7 @@ class UiMainWindow(object):
         self.tabWidget.setTabText(
             self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Delete User")
         )
-        self.label_12.setText(_translate("MainWindow", "Server IP Address:"))
+        self.label_12.setText(_translate("MainWindow", "server IP Address:"))
         self.menuOptions.setTitle(_translate("MainWindow", "Options"))
         self.actionRefresh.setText(_translate("MainWindow", "Refresh"))
         self.actionLogout.setText(_translate("MainWindow", "Logout"))

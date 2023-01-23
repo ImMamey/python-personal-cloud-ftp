@@ -443,7 +443,7 @@ class MyMainGui(QWidget,Ui_Form):
 
     def downloadToRemoteFileList(self):
         """
-        download file and directory list from FTP Server
+        download file and directory list from FTP server
         """
         self.remoteWordList = []
         self.remoteDir      = {}

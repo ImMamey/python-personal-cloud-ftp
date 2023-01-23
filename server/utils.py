@@ -19,7 +19,7 @@ def get_ip() -> str:
 def data_path(path: Union[Path, str], is_folder: bool = False) -> Path:
     """Return a valid local data path, docker-aware"""
     if os.environ.get("RUNNING_IN_DOCKER", False):
-        _path = Path("/data") / path
+        _path = Path("data") / path
     else:
         _path = Path.cwd() / "data" / path
 
@@ -49,7 +49,7 @@ def setup_logger(logger_name: str = "server", level: int = logging.DEBUG) -> Non
     )
 
     hldr = logging.handlers.TimedRotatingFileHandler(
-        str(log_folder / "Server.log"), when="W0", encoding="utf-8", backupCount=16
+        str(log_folder / "server.log"), when="W0", encoding="utf-8", backupCount=16
     )
     hldr.setFormatter(fmt)
     hldr.setLevel(logging.DEBUG)

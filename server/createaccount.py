@@ -12,9 +12,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMessageBox
 import sqlite3
-import sys
 
-from src.Server.adminpanel import UiMainWindow
+from server.adminpanel import UiMainWindow
 
 
 class Ui_Form(object):
@@ -209,7 +208,7 @@ class Ui_Form(object):
             else:
                 print("Created 1 admin")
                 cursor.execute(command_insert, (self.username, self.password))
-                # src.Server.ftpserver.start()
+                # src.server.ftpserver.start()
         db.commit()
         db.close()
 

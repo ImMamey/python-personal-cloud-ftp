@@ -3,12 +3,8 @@
 
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QMessageBox, QDialog, QFileDialog
-from pyftpdlib.authorizers import DummyAuthorizer
-from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import ThreadedFTPServer
 import sys
-import os
 import threading
 import os
 import logging
@@ -16,10 +12,9 @@ import platform
 import sqlite3
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
-from pyftpdlib.servers import FTPServer
-from src.Server.utils import setup_logger, user_dir, get_ip
+from server.utils import setup_logger, user_dir, get_ip
 from environment import env
-from src.Server.adminpanel import UiMainWindow
+from server.adminpanel import UiMainWindow
 
 LOG = logging.getLogger("server")
 
@@ -107,13 +102,15 @@ class Example(QtWidgets.QMainWindow):
                 db = sqlite3.connect("users.db")
             except Exception as e:
                 print(e)
+            # command_insert = f"INSERT INTO admins(username, password) values(? , ?)"
+            # cursor.execute(command_insert, (self.username, self.password))
 
             # SQL commands and cursors
-            command_login = f"""SELECT username FROM admins where username = "{self.username}" and password = "{self.password}";"""
+            command_login = f"SELECT username FROM admins where username = ? and password = ?;"
             cursor = db.cursor()
 
             # Check for admin match
-            cursor.execute(command_login)
+            cursor.execute(command_login, (self.username, self.password))
             if not cursor.fetchone():
                 msg = QMessageBox()
                 msg.setWindowTitle("Failiure!")
@@ -163,7 +160,7 @@ class Example(QtWidgets.QMainWindow):
             else:
                 print("Created 1 admin")
                 cursor.execute(command_insert, (self.username, self.password))
-                # src.Server.ftpserver.start()
+                # src.server.ftpserver.start()
         db.commit()
         db.close()
 
@@ -264,14 +261,14 @@ class Example(QtWidgets.QMainWindow):
             self.address = (server_ip, 2121)
             self.server = ThreadedFTPServer(self.address, self.handler)
 
-            QMessageBox.information(self, "FTP Server started", "FTP Server started")
+            QMessageBox.information(self, "FTP server started", "FTP server started")
             self.start()
             self.create_users_fromdb(self.authorizer)
             self.create_admins_fromdb(self.authorizer)
         except Exception as e:
             exception = f"{type(e).__name__}: (e)"
             print(f"Failed to setup logger and/or ftp folder:\n {exception}")
-            LOG.exception("Server goes brrr")
+            LOG.exception("server goes brrr")
 
     def openWindow(self):
         self.window = QtWidgets.QMainWindow()
@@ -292,7 +289,7 @@ class Example(QtWidgets.QMainWindow):
     def onStop(self):
         print("stop")
         self.server.close_all()
-        QMessageBox.information(self, "FTP Server stopped", "FTP Server stopped")
+        QMessageBox.information(self, "FTP server stopped", "FTP server stopped")
 
 
 app = QtWidgets.QApplication([])
