@@ -20,7 +20,7 @@
 
 
 ## Description
- A small and lightweight local-network based file storage server (Google Drive-like) made with python3, pyQT5, pyftplib, and Docker (Optional, can run without docker).
+ A small and lightweight local-network based file storage server (Google Drive-like) made with python3, pyQT5, and pyftplib.
 
 
 ---
