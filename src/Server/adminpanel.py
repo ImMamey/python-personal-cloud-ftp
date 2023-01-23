@@ -13,26 +13,25 @@ import sqlite3
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QTableWidgetItem
-from pyftpdlib.authorizers import DummyAuthorizer
-from pyftpdlib.handlers import FTPHandler
-from pyftpdlib.servers import FTPServer
-from src.Server.utils import setup_logger, user_dir, get_ip
 import logging
 
-
 from src.Server.utils import get_ip
+
 LOG = logging.getLogger("server")
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        # global class variables
-        self.create_username = ""
-        self.create_password = ""
-        self.create_almacenamiento = 0
 
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+class UiMainWindow(object):
+    def __init__(self):
+        self.create_almacenamiento = 0
+        self.create_password = ""
+        self.create_username = ""
+
+    def setupUi(self, main_window):
+        # global class variables
+
+        main_window.setObjectName("MainWindow")
+        main_window.resize(800, 600)
+        self.centralwidget = QtWidgets.QWidget(main_window)
         self.centralwidget.setObjectName("centralwidget")
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
         self.tabWidget.setGeometry(QtCore.QRect(10, 60, 761, 451))
@@ -273,27 +272,27 @@ class Ui_MainWindow(object):
         self.label_ipAddress.setAlignment(QtCore.Qt.AlignCenter)
         self.label_ipAddress.setObjectName("label_ipAddress")
         self.horizontalLayout_9.addWidget(self.label_ipAddress)
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        main_window.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(main_window)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
         self.menubar.setObjectName("menubar")
         self.menuOptions = QtWidgets.QMenu(self.menubar)
         self.menuOptions.setObjectName("menuOptions")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        main_window.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(main_window)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
-        self.actionRefresh = QtWidgets.QAction(MainWindow)
+        main_window.setStatusBar(self.statusbar)
+        self.actionRefresh = QtWidgets.QAction(main_window)
         self.actionRefresh.setObjectName("actionRefresh")
-        self.actionLogout = QtWidgets.QAction(MainWindow)
+        self.actionLogout = QtWidgets.QAction(main_window)
         self.actionLogout.setObjectName("actionLogout")
         self.menuOptions.addAction(self.actionRefresh)
         self.menuOptions.addSeparator()
         self.menuOptions.addAction(self.actionLogout)
         self.menubar.addAction(self.menuOptions.menuAction())
-        self.retranslateUi(MainWindow)
+        self.retranslateUi(main_window)
         self.tabWidget.setCurrentIndex(0)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(main_window)
 
         self.spinBox_storage_createUser.setMaximum(100000)
         self.spinBox_editStorage.setMaximum(100000)
@@ -304,9 +303,9 @@ class Ui_MainWindow(object):
         self.pushButton_deleteUser.clicked.connect(self.sql_delete_user)
         self.pushButton_editUser.clicked.connect(self.sql_update_user)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, main_window):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "AdminPanel"))
+        main_window.setWindowTitle(_translate("MainWindow", "AdminPanel"))
         self.table_users.setSortingEnabled(True)
         item = self.table_users.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Username"))
@@ -343,8 +342,8 @@ class Ui_MainWindow(object):
     def refreshed_button_pressed(self) -> None:
         self.sql_populate_table()
         self.ip_label_update()
-        #TODO: link refresh users from the class Example def refreshuser, somehow, in here
-        #refresh_users()
+        # TODO: link refresh users from the class Example def refreshuser, somehow, in here
+        # refresh_users()
 
     def sql_populate_table(self) -> None:
         """
@@ -544,7 +543,7 @@ if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
+    ui = UiMainWindow()
     ui.sql_populate_table()
     ui.setupUi(MainWindow)
     MainWindow.show()

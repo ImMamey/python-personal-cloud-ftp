@@ -19,20 +19,18 @@ from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
 from src.Server.utils import setup_logger, user_dir, get_ip
 from environment import env
-from src.Server.adminpanel import Ui_MainWindow
+from src.Server.adminpanel import UiMainWindow
 
 LOG = logging.getLogger("server")
-
 
 
 class Example(QtWidgets.QMainWindow):
     def __init__(self):
         super(Example, self).__init__()
-        #TODO: absolute path is needed for the exe file
+        # TODO: absolute path is needed for the exe file
         uic.loadUi(r'gui.ui', self)
         self.username = ""
         self.password = ""
-
 
         self.pushButtonStart.clicked.connect(self.onClick)
         self.pushButtonStop.clicked.connect(self.onStop)
@@ -165,7 +163,6 @@ class Example(QtWidgets.QMainWindow):
         db.commit()
         db.close()
 
-
     def ok_button_clicked(self, i):
         if i.text() == "OK":
             self.sql_create_admin()
@@ -253,7 +250,6 @@ class Example(QtWidgets.QMainWindow):
                 f"Running on: {platform.system()} {platform.release()} ({os.name}) on the ip: {server_ip}"
             )
 
-
             self.authorizer.add_user(env.USER, env.PASSWORD, _storage, perm="elradfmwMT")
             self.address = (server_ip, 2121)
             self.server = ThreadedFTPServer(self.address, self.handler)
@@ -269,11 +265,11 @@ class Example(QtWidgets.QMainWindow):
 
     def openWindow(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_MainWindow()
+        self.ui = UiMainWindow()
         self.ui.setupUi(self.window)
         self.window.show()
         self.ui.refreshed_button_pressed()
-        #win.close()
+        # win.close()
 
     def _run_server(self):
         self.server.serve_forever()

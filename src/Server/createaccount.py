@@ -14,13 +14,15 @@ from PyQt5.QtWidgets import QMessageBox
 import sqlite3
 import sys
 
-from src.Server.adminpanel import Ui_MainWindow
+from src.Server.adminpanel import UiMainWindow
 
 
 class Ui_Form(object):
-    def setupUi(self, Form) -> None:
-        self.username = ""
+    def __init__(self):
         self.password = ""
+        self.username = ""
+
+    def setupUi(self, Form) -> None:
 
         Form.setObjectName("Form")
         Form.resize(487, 366)
@@ -216,7 +218,7 @@ class Ui_Form(object):
 
     def openWindow(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_MainWindow()
+        self.ui = UiMainWindow()
         self.ui.setupUi(self.window)
         self.window.show()
         self.ui.refreshed_button_pressed()
